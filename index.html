@@ -24,8 +24,20 @@
       line-height: 1.7;
     }
 
-    /* NAV */
-    nav {
+    /* COMING SOON BANNER */
+    .coming-soon-bar {
+      background: var(--gold);
+      color: #080808;
+      text-align: center;
+      padding: 10px 24px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    }
+    nav { top: 36px; }
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 18px 48px;
@@ -253,6 +265,8 @@
 </head>
 <body>
 
+  <div class="coming-soon-bar">⭐ Coming Soon to iOS &amp; Android</div>
+
   <nav>
     <div class="nav-logo">
       <img src="logo.png" alt="SelfMade logo">
@@ -270,12 +284,11 @@
     <img class="hero-img" src="hero-bg.png" alt="SelfMade Empire Builder">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <div class="hero-eyebrow">Now Available on iOS &amp; Android</div>
       <h1>SelfMade:<br><span>Business Empire</span><br>Simulator</h1>
       <p class="hero-sub">What would you do with unlimited wealth? Build the life you've always imagined — from a studio flat to a private island, from a side hustle to a global empire. Your fantasy, your rules.</p>
       <div class="hero-actions">
-        <a href="#app" class="btn-primary">Learn More</a>
-        <a href="#contact" class="btn-outline">Contact Us</a>
+        <a href="game.html" class="btn-primary">▶ Play Now — Free</a>
+        <a href="#app" class="btn-outline">Learn More</a>
       </div>
     </div>
   </section>
@@ -306,7 +319,7 @@
       <h2>Your Fantasy Life,<br>No Limits</h2>
       <p>SelfMade is a passive income fantasy game with idle clicker roots — putting you in control of a fictional financial empire that grows even while you sleep. Manage businesses, trade stocks, acquire properties, and build the kind of wealth that exists only in your imagination.</p>
       <p>There's no pay-to-win. No pressure. Just the satisfaction of watching your empire grow — and the freedom to play it exactly the way you want.</p>
-      <p style="color:var(--gold);font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;margin-top:8px;">Free to play &nbsp;·&nbsp; iOS &amp; Android</p>
+      <p style="color:var(--gold);font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;margin-top:8px;">Coming soon &nbsp;·&nbsp; iOS &amp; Android</p>
     </div>
     <div>
       <img class="app-img" src="selfmade-hero.png" alt="SelfMade gameplay" onclick="document.getElementById('lightbox-img').src=this.src;document.getElementById('lightbox').classList.add('active')">
