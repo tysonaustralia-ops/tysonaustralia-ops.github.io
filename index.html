@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cromdale Holdings Pty Ltd</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:    #C9A84C;
+      --gold-lt: #E8C96A;
+      --dark:    #0A0A0A;
+      --surface: #111111;
+      --border:  rgba(201,168,76,0.18);
+      --text:    #F0EDE6;
+      --muted:   rgba(240,237,230,0.45);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(201,168,76,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(42px, 7vw, 88px);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+      max-width: 900px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+    .hero-sub {
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 56px;
+      font-weight: 400;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 36px;
+      border: 1px solid var(--gold);
+      border-radius: 2px;
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn:hover { background: var(--gold); color: var(--dark); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 1px; height: 80px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      margin: 0 auto;
+    }
+
+    /* ── APP SECTION ── */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 24px;
+    }
+    .section-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .section h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .section p {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 540px;
+      margin-bottom: 16px;
+      font-weight: 400;
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .app-img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+    }
+    .app-badges {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      margin-top: 32px;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 18px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .about-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+    .about h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(26px, 3.5vw, 42px);
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+    .about p {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 16px;
+      font-weight: 400;
+    }
+
+    /* ── PRIVACY ── */
+    .privacy {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 100px 24px;
+    }
+    .privacy h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 32px;
+      margin-bottom: 32px;
+    }
+    .privacy h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--gold);
+      margin: 32px 0 10px;
+    }
+    .privacy p, .privacy li {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 12px;
+      font-weight: 400;
+    }
+    .privacy ul { padding-left: 20px; }
+
+    /* ── CONTACT ── */
+    .contact {
+      text-align: center;
+      border-top: 1px solid var(--border);
+      padding: 80px 24px;
+    }
+    .contact h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+    .contact p { color: var(--muted); margin-bottom: 8px; }
+    .contact a { color: var(--gold); text-decoration: none; }
+    .contact a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    footer p { font-size: 12px; color: var(--muted); }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .app-grid, .about-inner { grid-template-columns: 1fr; gap: 40px; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">Cromdale Holdings</div>
+    <div class="nav-links">
+      <a href="#app">Our App</a>
+      <a href="#about">About</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">Cromdale Holdings Pty Ltd</div>
+    <h1>Mobile Games<br>Built to <em>Last</em></h1>
+    <p class="hero-sub">An Australian independent studio crafting idle and incremental games for iOS and Android.</p>
+    <a href="#app" class="btn">Our Games</a>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- APP -->
+  <section class="section" id="app">
+    <div class="app-grid">
+      <div>
+        <div class="section-label">Now Available</div>
+        <h2>SelfMade</h2>
+        <p>Start with nothing. Build an empire. SelfMade is an idle incremental game where you climb from a studio flat to a private island — through businesses, stocks, real estate, and lifestyle upgrades.</p>
+        <p>Every decision compounds. Every dollar counts. How far can you go?</p>
+        <div class="app-badges">
+          <span class="badge">📱 iOS</span>
+          <span class="badge">🤖 Android</span>
+          <span class="badge">🆓 Free to Play</span>
+        </div>
+      </div>
+      <div>
+        <img class="app-img" src="selfmade-screenshot.png" alt="SelfMade game screenshot" onerror="this.style.display='none'">
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <div class="about" id="about">
+    <div class="about-inner">
+      <div>
+        <div class="section-label">About Us</div>
+        <h2>Independent.<br>Australian.<br>Self-Made.</h2>
+      </div>
+      <div>
+        <p>Cromdale Holdings Pty Ltd is an independent mobile game development company registered in Australia.</p>
+        <p>We build games that respect the player — no manipulative mechanics, no pay-to-win, no dark patterns. Just deep, rewarding idle gameplay with genuine progression.</p>
+        <p>SelfMade is our debut title. We are based in Australia and operate across iOS and Android platforms.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIVACY -->
+  <section class="privacy" id="privacy">
+    <div class="section-label">Legal</div>
+    <h2>Privacy Policy</h2>
+    <p>Last updated: June 2026</p>
+
+    <h3>Overview</h3>
+    <p>Cromdale Holdings Pty Ltd ("we", "us", "our") operates the SelfMade mobile application. This policy describes how we handle information in connection with our app.</p>
+
+    <h3>Data We Collect</h3>
+    <p>SelfMade does not collect, transmit, or store any personal data. The app runs entirely on your device. No account is required. No personal information is requested or stored by us.</p>
+
+    <h3>Game Data</h3>
+    <p>Game progress is saved locally on your device only. We do not have access to your save data. We do not use third-party analytics, advertising SDKs, or tracking tools.</p>
+
+    <h3>Children</h3>
+    <p>SelfMade does not collect personal information from anyone, including children under 13. The app is safe for general audiences.</p>
+
+    <h3>Third-Party Services</h3>
+    <p>SelfMade does not integrate any third-party services that collect user data.</p>
+
+    <h3>Changes to This Policy</h3>
+    <p>We may update this policy from time to time. Any changes will be reflected on this page with an updated date.</p>
+
+    <h3>Contact</h3>
+    <p>If you have questions about this privacy policy, please contact us at <a href="mailto:admin@cromdaleholdings.com" style="color:var(--gold)">admin@cromdaleholdings.com</a>.</p>
+  </section>
+
+  <!-- CONTACT -->
+  <div class="contact" id="contact">
+    <h2>Get in Touch</h2>
+    <p>Support, feedback, or general enquiries:</p>
+    <p><a href="mailto:admin@cromdaleholdings.com">admin@cromdaleholdings.com</a></p>
+    <br>
+    <p style="font-size:13px;">Cromdale Holdings Pty Ltd &mdash; Australia</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 Cromdale Holdings Pty Ltd. All rights reserved.</p>
+    <p><a href="#privacy">Privacy Policy</a></p>
+  </footer>
+
+</body>
+</html>
