@@ -164,7 +164,30 @@
       width: 100%; border-radius: 10px;
       border: 1px solid var(--border);
       box-shadow: 0 40px 80px rgba(0,0,0,0.7);
+      cursor: zoom-in;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
+    .app-img:hover { transform: scale(1.02); box-shadow: 0 50px 100px rgba(0,0,0,0.8); }
+
+    /* LIGHTBOX */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,0.92);
+      align-items: center; justify-content: center;
+      cursor: zoom-out;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 92vw; max-height: 90vh;
+      border-radius: 8px;
+      box-shadow: 0 0 80px rgba(0,0,0,0.8);
+    }
+    .lightbox-close {
+      position: absolute; top: 24px; right: 32px;
+      font-size: 32px; color: var(--muted); cursor: pointer;
+      line-height: 1; transition: color 0.2s;
+    }
+    .lightbox-close:hover { color: var(--text); }
 
     /* PRIVACY */
     .privacy-wrap {
@@ -281,12 +304,12 @@
     <div>
       <div class="app-label">SelfMade — Business Empire Simulator</div>
       <h2>Your Fantasy Life,<br>No Limits</h2>
-      <p>SelfMade is an idle incremental game that puts you in control of a fictional financial empire. Manage businesses, trade stocks, acquire properties, and build the kind of wealth that exists only in your imagination.</p>
+      <p>SelfMade is a passive income fantasy game with idle clicker roots — putting you in control of a fictional financial empire that grows even while you sleep. Manage businesses, trade stocks, acquire properties, and build the kind of wealth that exists only in your imagination.</p>
       <p>There's no pay-to-win. No pressure. Just the satisfaction of watching your empire grow — and the freedom to play it exactly the way you want.</p>
       <p style="color:var(--gold);font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;margin-top:8px;">Free to play &nbsp;·&nbsp; iOS &amp; Android</p>
     </div>
     <div>
-      <img class="app-img" src="selfmade-hero.png" alt="SelfMade gameplay">
+      <img class="app-img" src="selfmade-hero.png" alt="SelfMade gameplay" onclick="document.getElementById('lightbox-img').src=this.src;document.getElementById('lightbox').classList.add('active')">
     </div>
   </section>
 
@@ -306,7 +329,7 @@
       <p>All game progress is saved locally on your device only. We do not have access to your save data, and we do not use third-party analytics, advertising SDKs, or tracking tools of any kind.</p>
 
       <h3>Children</h3>
-      <p>SelfMade does not collect personal information from anyone, including children under 13. The app is safe for general audiences.</p>
+      <p>SelfMade does not collect personal information from anyone, including children under 16. This app is intended for users aged 16 and over.</p>
 
       <h3>Third-Party Services</h3>
       <p>SelfMade does not integrate any third-party services that collect user data.</p>
@@ -325,6 +348,12 @@
     <p>Support, feedback, or general enquiries:</p>
     <p><a href="mailto:admin@cromdaleholdings.com">admin@cromdaleholdings.com</a></p>
     <p style="margin-top:24px;font-size:13px;">Cromdale Holdings Pty Ltd &mdash; Australia</p>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+    <div class="lightbox-close" onclick="document.getElementById('lightbox').classList.remove('active')">&times;</div>
+    <img id="lightbox-img" src="" alt="SelfMade screenshot">
   </div>
 
   <!-- FOOTER -->
