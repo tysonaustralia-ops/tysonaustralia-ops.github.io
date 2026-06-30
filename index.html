@@ -937,8 +937,10 @@
   // ─── ODOMETER PREVIEW ──────────────────────────────────────────
   (function(){
     var ROLL_MS   = 220;
-    var START_VAL = 0;           // starts at zero — builds while user is on the page
-    var INCOME_PS = 10000/3600;  // $10,000 per hour = $2.778/sec
+    var START_VAL = 0;
+    var INCOME_PS = 33000/3600;   // $33,000/hr — hits $1M in ~30 mins
+    var MAX_VAL   = 1000000;      // rolls into PLAY NOW at $1,000,000
+    var MIN_DIGITS = 7;           // always show at least 7 integer digits so layout stays stable
 
     var centVal = START_VAL * 100;
     var wrap    = document.getElementById('gp-odo-wrap');
@@ -954,7 +956,9 @@
     }
 
     // ── build digit columns ──
-    function makeCol(digit){
+    var PLAYNOW = ['P','L','A','Y','N','O','W'];
+
+    function makeCol(digit, letter){
       var col = document.createElement('div');
       col.className = 'gp-digit-col';
       var strip = document.createElement('div');
@@ -965,6 +969,13 @@
         d.className = 'gp-digit';
         d.textContent = i % 10;
         strip.appendChild(d);
+      }
+      // slot 20: the letter (reached when we roll past 9 the final time)
+      if(letter){
+        var l = document.createElement('div');
+        l.className = 'gp-digit';
+        l.textContent = letter;
+        strip.appendChild(l);
       }
       col.appendChild(strip);
       col.dataset.cur = digit;
@@ -989,6 +1000,8 @@
       wrap.innerHTML = '';
       cols = [];
       var str = Math.floor(dollarVal).toString();
+      // pad to MIN_DIGITS so layout is always stable
+      while(str.length < MIN_DIGITS) str = '0' + str;
       // add comma separators
       var parts = [];
       var n = str.length;
@@ -1004,11 +1017,14 @@
       parts.push((cents%10).toString());
 
       wrap.appendChild(makePrefix());
+      var colIdx = 0;
       parts.forEach(function(ch){
         if(ch === ',' || ch === '.'){
           wrap.appendChild(makeSep(ch));
         } else {
-          var c = makeCol(parseInt(ch));
+          var letter = PLAYNOW[colIdx] || null;
+          var c = makeCol(parseInt(ch), letter);
+          colIdx++;
           wrap.appendChild(c.col);
           // set initial position
           var pos = parseInt(ch);
@@ -1042,17 +1058,43 @@
     // ── RAF loop ──
     var lastT = null;
     var lastRebuild = 0;
+    var rafId;
 
     function raf(ts){
-      if(!lastT) { lastT = ts; requestAnimationFrame(raf); return; }
+      if(!lastT) { lastT = ts; rafId = requestAnimationFrame(raf); return; }
       var dt = (ts - lastT) / 1000;
       lastT = ts;
 
       centVal += INCOME_PS * 100 * dt;
+
+      // When cap is hit — roll each column into its PLAY NOW letter
+      if(centVal > MAX_VAL * 100){
+        cancelAnimationFrame(rafId);
+        // Roll each digit column to its letter slot (slot 20), staggered
+        cols.forEach(function(c, i){
+          setTimeout(function(){
+            var h = c.col.querySelector('.gp-digit') ? c.col.querySelector('.gp-digit').offsetHeight || 52 : 52;
+            c.strip.style.transition = 'transform 320ms ease-in';
+            c.strip.style.transform = 'translateY(-' + (20 * h) + 'px)';
+          }, i * 80);
+        });
+        // After all columns have rolled, update income text and make it a link
+        var totalDelay = cols.length * 80 + 400;
+        setTimeout(function(){
+          if(incEl) incEl.innerHTML = '<a href="game.html" target="_blank" style="color:#60dd88;text-decoration:none;font-weight:600">▶ Play Now — Free</a>';
+          // Hide separators and prefix so only the letters remain clean
+          wrap.querySelectorAll('.gp-sep, .gp-prefix').forEach(function(el){ el.style.opacity='0'; });
+          // Make the whole card clickable
+          wrap.style.cursor = 'pointer';
+          wrap.onclick = function(){ window.open('game.html','_blank'); };
+        }, totalDelay);
+        return;
+      }
+
       var dollarVal = centVal / 100;
 
-      // Rebuild display if digit count changes (e.g. crosses million boundary)
-      var newLen = Math.floor(dollarVal).toString().length;
+      // Rebuild display only if digit count changes above MIN_DIGITS
+      var newLen = Math.max(Math.floor(dollarVal).toString().length, MIN_DIGITS);
       if(!lastRebuild || newLen !== lastRebuild){
         buildDisplay(dollarVal);
         lastRebuild = newLen;
@@ -1061,6 +1103,7 @@
       // Update each digit column
       var h = wrap.querySelector('.gp-digit') ? wrap.querySelector('.gp-digit').offsetHeight || 52 : 52;
       var str = Math.floor(dollarVal).toString();
+      while(str.length < MIN_DIGITS) str = '0' + str;
       var cents = Math.floor((dollarVal * 100) % 100);
       var allDigits = [];
       for(var i=0;i<str.length;i++) allDigits.push(parseInt(str[i]));
@@ -1072,9 +1115,9 @@
       }
 
       if(incEl) incEl.textContent = fmtIncome(INCOME_PS);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     // ── notification feed ──
     var notifEl = document.getElementById('gp-notifications');
