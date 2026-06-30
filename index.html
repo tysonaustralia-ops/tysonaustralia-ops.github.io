@@ -154,75 +154,6 @@
       color: var(--gold);
     }
     .nav-links { display: flex; gap: 32px; }
-    .nav-odo-centre {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
-    }
-    .nav-odo-label {
-      font-family: 'Syne', sans-serif;
-      font-size: 8px;
-      letter-spacing: 0.2em;
-      color: rgba(240,237,230,0.3);
-      text-transform: uppercase;
-      margin-bottom: 1px;
-    }
-    .nav-odo-wrap {
-      display: flex;
-      align-items: center;
-      gap: 0;
-    }
-    .nav-odo-digit-col {
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      height: clamp(18px, 3.5vw, 28px);
-    }
-    .nav-odo-strip {
-      display: flex;
-      flex-direction: column;
-      transition: transform 220ms linear;
-    }
-    .nav-odo-digit {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(14px, 2.8vw, 22px);
-      line-height: clamp(18px, 3.5vw, 28px);
-      color: #F0CC72;
-      letter-spacing: -0.5px;
-      width: clamp(10px, 1.9vw, 15px);
-      text-align: center;
-      user-select: none;
-    }
-    .nav-odo-sep {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(14px, 2.8vw, 22px);
-      line-height: clamp(18px, 3.5vw, 28px);
-      color: rgba(240,204,114,0.4);
-      padding: 0 1px;
-      user-select: none;
-    }
-    .nav-odo-prefix {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(10px, 2vw, 15px);
-      line-height: clamp(18px, 3.5vw, 28px);
-      color: rgba(240,204,114,0.55);
-      padding-right: 2px;
-      user-select: none;
-    }
-    .nav-odo-income {
-      font-size: clamp(8px, 1.5vw, 9px);
-      color: #60dd88;
-      font-family: 'DM Sans', sans-serif;
-      letter-spacing: 0.04em;
-      margin-top: 1px;
-    }
     .nav-links a {
       font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
       color: var(--muted); text-decoration: none; transition: color 0.2s;
@@ -449,16 +380,14 @@
     footer a:hover { color: var(--text); }
 
     @media (max-width: 768px) {
-      nav { padding: 12px 20px; flex-wrap: wrap; justify-content: center; gap: 4px; }
+      nav { padding: 16px 20px; }
       .nav-links { display: none; }
-      .nav-logo { width: 100%; justify-content: center; }
-      .nav-odo-centre { position: static; transform: none; width: 100%; }
       .hero {
         min-height: 0;
         display: block;
         position: relative;
         overflow: visible;
-        margin-top: 119px;
+        margin-top: 64px;
       }
       .hero-img {
         position: static;
@@ -668,10 +597,7 @@
       margin-bottom: 14px;
     }
     .gp-notifications {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      min-height: 88px;
+      min-height: 44px;
     }
     .gp-notif {
       display: flex;
@@ -717,11 +643,6 @@
   <nav>
     <div class="nav-logo" onclick="gtag('event','click',{event_category:'nav',event_label:'logo'})">
       <span>Cromdale Holdings</span>
-    </div>
-    <div class="nav-odo-centre">
-      <div class="nav-odo-label">TOTAL BALANCE</div>
-      <div class="nav-odo-wrap" id="nav-odo-wrap"></div>
-      <div class="nav-odo-income" id="nav-odo-income">+$4.22k/sec passive</div>
     </div>
     <div class="nav-links">
       <a href="#app" onclick="gtag('event','click',{event_category:'nav',event_label:'the_game'})">The Game</a>
@@ -933,101 +854,6 @@
   </script>
 
   <script>
-  // ─── NAV ODOMETER ──────────────────────────────────────────────
-  (function(){
-    var ROLL_MS   = 220;
-    var START_VAL = 2847392.18;
-    var INCOME_PS = 4218.55;
-    var centVal   = START_VAL * 100;
-    var wrap      = document.getElementById('nav-odo-wrap');
-    var incEl     = document.getElementById('nav-odo-income');
-    if(!wrap) return;
-
-    function fmtIncome(v){
-      if(v>=1e6) return '+$'+(v/1e6).toFixed(2)+'m/sec passive';
-      if(v>=1e3) return '+$'+(v/1e3).toFixed(2)+'k/sec passive';
-      return '+$'+v.toFixed(2)+'/sec passive';
-    }
-    function getH(){
-      var d = wrap.querySelector('.nav-odo-digit');
-      return d ? d.offsetHeight || 18 : 18;
-    }
-    function makeCol(digit){
-      var col=document.createElement('div'); col.className='nav-odo-digit-col';
-      var strip=document.createElement('div'); strip.className='nav-odo-strip';
-      for(var i=0;i<20;i++){
-        var d=document.createElement('div'); d.className='nav-odo-digit';
-        d.textContent=i%10; strip.appendChild(d);
-      }
-      col.appendChild(strip); col.dataset.cur=digit;
-      return {col:col,strip:strip};
-    }
-    function makeSep(ch){
-      var s=document.createElement('div'); s.className='nav-odo-sep'; s.textContent=ch; return s;
-    }
-    function makePrefix(){
-      var p=document.createElement('div'); p.className='nav-odo-prefix'; p.textContent='$'; return p;
-    }
-    var cols=[];
-    function buildDisplay(dollarVal){
-      wrap.innerHTML=''; cols=[];
-      var str=Math.floor(dollarVal).toString();
-      var parts=[];
-      var n=str.length;
-      for(var i=0;i<n;i++){
-        parts.push(str[i]);
-        var rem=n-i-1;
-        if(rem>0&&rem%3===0) parts.push(',');
-      }
-      var cents=Math.floor((dollarVal*100)%100);
-      parts.push('.'); parts.push(Math.floor(cents/10).toString()); parts.push((cents%10).toString());
-      wrap.appendChild(makePrefix());
-      parts.forEach(function(ch){
-        if(ch===','||ch==='.'){wrap.appendChild(makeSep(ch));}
-        else{
-          var c=makeCol(parseInt(ch));
-          wrap.appendChild(c.col);
-          var h=getH();
-          c.strip.style.transition='none';
-          c.strip.style.transform='translateY(-'+(parseInt(ch)*h)+'px)';
-          cols.push(c);
-        }
-      });
-    }
-    buildDisplay(START_VAL);
-    if(incEl) incEl.textContent=fmtIncome(INCOME_PS);
-
-    function rollCol(c,toDigit){
-      var h=getH();
-      var cur=parseInt(c.col.dataset.cur);
-      if(cur===toDigit) return;
-      c.col.dataset.cur=toDigit;
-      var targetY=toDigit*h;
-      if(toDigit<cur) targetY+=10*h;
-      c.strip.style.transition='transform '+ROLL_MS+'ms linear';
-      c.strip.style.transform='translateY(-'+targetY+'px)';
-      setTimeout(function(){ c.strip.style.transition='none'; c.strip.style.transform='translateY(-'+(toDigit*h)+'px)'; },ROLL_MS+20);
-    }
-
-    var lastT=null,lastLen=0;
-    function raf(ts){
-      if(!lastT){lastT=ts;requestAnimationFrame(raf);return;}
-      var dt=(ts-lastT)/1000; lastT=ts;
-      centVal+=INCOME_PS*100*dt;
-      var dollarVal=centVal/100;
-      var newLen=Math.floor(dollarVal).toString().length;
-      if(newLen!==lastLen){buildDisplay(dollarVal);lastLen=newLen;}
-      var str=Math.floor(dollarVal).toString();
-      var cents=Math.floor((dollarVal*100)%100);
-      var allDigits=[];
-      for(var i=0;i<str.length;i++) allDigits.push(parseInt(str[i]));
-      allDigits.push(Math.floor(cents/10)); allDigits.push(cents%10);
-      for(var j=0;j<Math.min(cols.length,allDigits.length);j++) rollCol(cols[j],allDigits[j]);
-      if(incEl) incEl.textContent=fmtIncome(INCOME_PS);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-  })();
 
   // ─── LIVE TICKER ───────────────────────────────────────────────
   (function(){
@@ -1111,8 +937,8 @@
   // ─── ODOMETER PREVIEW ──────────────────────────────────────────
   (function(){
     var ROLL_MS   = 220;
-    var START_VAL = 2847392.18;  // starting net worth: $2,847,392.18
-    var INCOME_PS = 4218.55;     // $4,218.55 per second passive income
+    var START_VAL = 0;           // starts at zero — builds while user is on the page
+    var INCOME_PS = 10000/3600;  // $10,000 per hour = $2.778/sec
 
     var centVal = START_VAL * 100;
     var wrap    = document.getElementById('gp-odo-wrap');
@@ -1121,9 +947,10 @@
 
     // ── format helpers ──
     function fmtIncome(v){
-      if(v >= 1e6)       return '+$' + (v/1e6).toFixed(2) + 'm/sec passive';
-      if(v >= 1e3)       return '+$' + (v/1e3).toFixed(2) + 'k/sec passive';
-      return '+$' + v.toFixed(2) + '/sec passive';
+      var perHour = v * 3600;
+      if(perHour >= 1e6) return '+$' + (perHour/1e6).toFixed(2) + 'm/hr passive';
+      if(perHour >= 1e3) return '+$' + (perHour/1e3).toFixed(2) + 'k/hr passive';
+      return '+$' + perHour.toFixed(2) + '/hr passive';
     }
 
     // ── build digit columns ──
@@ -1259,31 +1086,19 @@
       { icon:'📈', text:'<span class="gp-notif-gold">AIX0</span> US AI Companies surge 5.8% — <span class="gp-notif-green">+$31,800</span>' },
       { icon:'🏢', text:'<span class="gp-notif-gold">Media Empire</span> earned <span class="gp-notif-green">+$48,200</span>' },
       { icon:'🏠', text:'<span class="gp-notif-gold">London Townhouse</span> rental income <span class="gp-notif-green">+$18,700</span>' },
-      { icon:'💎', text:'Net worth milestone: <span class="gp-notif-gold">$2.5M reached</span>' },
-      { icon:'📈', text:'<span class="gp-notif-gold">BTC</span> up 3.8% — crypto gain <span class="gp-notif-green">+$14,200</span>' },
+      { icon:'📈', text:'<span class="gp-notif-gold">BTC</span> Bytecoin up 3.1% — crypto gain <span class="gp-notif-green">+$14,200</span>' },
       { icon:'🏢', text:'<span class="gp-notif-gold">Airline Fleet</span> earned <span class="gp-notif-green">+$92,400</span>' },
     ];
     var ni = 0;
-    var MAX_NOTIFS = 3;
 
     function addNotif(){
       if(!notifEl) return;
       var n = notifs[ni % notifs.length];
       ni++;
-      var el = document.createElement('div');
-      el.className = 'gp-notif';
-      el.innerHTML = '<span class="gp-notif-icon">' + n.icon + '</span><span>' + n.text + '</span>';
-      notifEl.appendChild(el);
-      // trim to max
-      while(notifEl.children.length > MAX_NOTIFS){
-        notifEl.removeChild(notifEl.firstChild);
-      }
+      notifEl.innerHTML = '<div class="gp-notif"><span class="gp-notif-icon">' + n.icon + '</span><span>' + n.text + '</span></div>';
     }
-    // Stagger initial notifications
-    setTimeout(function(){ addNotif(); }, 800);
-    setTimeout(function(){ addNotif(); }, 2200);
-    setTimeout(function(){ addNotif(); }, 3800);
-    setInterval(addNotif, 3500);
+    setTimeout(function(){ addNotif(); }, 1500);
+    setInterval(addNotif, 4000);
   })();
   </script>
 </body>
