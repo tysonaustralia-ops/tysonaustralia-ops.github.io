@@ -263,15 +263,16 @@
         object-fit: contain;
       }
       .hero-overlay {
-        position: absolute;
-        left: 0; right: 0; bottom: 0;
-        top: auto;
-        inset: auto 0 0 0;
-        height: 40%;
+        position: static;
+        display: block;
+        width: 100%;
+        height: 200px;
+        margin-top: -200px;
         background: linear-gradient(
           to bottom,
           rgba(8,8,8,0) 0%,
-          rgba(8,8,8,0.7) 60%,
+          rgba(8,8,8,0.35) 35%,
+          rgba(8,8,8,0.8) 70%,
           rgba(8,8,8,1) 100%
         );
         pointer-events: none;
@@ -281,7 +282,6 @@
         padding: 40px 24px 60px;
         width: 100%;
         max-width: 100%;
-        margin-top: -1px; /* eliminate any sub-pixel gap between image and content */
         background: #080808;
       }
       .hero h1 { font-size: clamp(32px, 9vw, 52px); }
