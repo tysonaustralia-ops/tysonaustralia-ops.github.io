@@ -587,7 +587,7 @@
       flex-direction: column;
       align-items: center;
       overflow: hidden;
-      height: 1.1em; /* scales with font-size automatically */
+      height: 46px;
       position: relative;
     }
     .gp-digit-strip {
@@ -599,10 +599,10 @@
       font-family: 'Syne', sans-serif;
       font-weight: 800;
       font-size: 34px;
-      line-height: 1.1;
+      line-height: 46px;
       color: rgba(0,0,0,0.75);
       letter-spacing: -0.5px;
-      width: 24px;
+      width: 28px;
       text-align: center;
       user-select: none;
     }
@@ -610,19 +610,19 @@
       font-family: 'Syne', sans-serif;
       font-weight: 800;
       font-size: 34px;
-      line-height: 1.1;
+      line-height: 46px;
       color: rgba(0,0,0,0.35);
       user-select: none;
-      padding: 0 1px;
+      padding: 0 2px;
     }
     .gp-prefix {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
       font-size: 22px;
-      line-height: 1.1;
+      line-height: 46px;
       color: rgba(0,0,0,0.45);
       user-select: none;
-      padding-right: 2px;
+      padding-right: 3px;
       align-self: center;
     }
     .gp-income {
@@ -633,6 +633,16 @@
       letter-spacing: 0.04em;
       position: relative;
       z-index: 1;
+    }
+    .gp-card-numbers {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: rgba(0,0,0,0.5);
+      position: relative;
+      z-index: 1;
+      margin-bottom: 4px;
     }
     .gp-card-bottom {
       display: flex;
@@ -715,7 +725,6 @@
     <div class="game-preview-card">
       <div class="gp-top">
         <div class="gp-eyebrow">TOTAL BALANCE</div>
-        <div class="gp-name">SELFMADE</div>
       </div>
       <div style="position:relative;z-index:1">
         <div class="gp-odo-wrap" id="gp-odo-wrap">
@@ -723,6 +732,7 @@
         </div>
         <div class="gp-income" id="gp-income">+$1.00k/hr passive</div>
       </div>
+      <div class="gp-card-numbers">7429 &nbsp; 8831 &nbsp; 0042 &nbsp; 6817</div>
       <div class="gp-card-bottom">
         <div class="gp-card-chip"></div>
         <div class="gp-card-network">SelfMade™</div>
@@ -1076,14 +1086,8 @@
           colIdx++;
           wrap.appendChild(c.col);
           var pos = parseInt(ch);
-          // defer positioning to after paint so offsetHeight is accurate
-          ;(function(col, strip, p){
-            requestAnimationFrame(function(){
-              var h = col.querySelector('.gp-digit') ? col.querySelector('.gp-digit').offsetHeight : 37;
-              strip.style.transition = 'none';
-              strip.style.transform = 'translateY(-' + (p * h) + 'px)';
-            });
-          })(c.col, c.strip, pos);
+          c.strip.style.transition = 'none';
+          c.strip.style.transform = 'translateY(-' + (pos * 46) + 'px)';
           cols.push(c);
         }
       });
@@ -1161,7 +1165,7 @@
       }
 
       // Update each digit column
-      var h = wrap.querySelector('.gp-digit') ? wrap.querySelector('.gp-digit').offsetHeight || 44 : 44;
+      var h = 46;
       var str = Math.floor(dollarVal).toString();
       while(str.length < MIN_DIGITS) str = '0' + str;
       var cents = Math.floor((dollarVal * 100) % 100);
