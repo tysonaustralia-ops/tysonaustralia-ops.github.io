@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cromdale Holdings — SelfMade</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DS56K0K9MM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DS56K0K9MM');
+  </script>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -267,13 +275,13 @@
 <body>
 
   <nav>
-    <div class="nav-logo">
+    <div class="nav-logo" onclick="gtag('event','click',{event_category:'nav',event_label:'logo'})">
       <span>Cromdale Holdings</span>
     </div>
     <div class="nav-links">
-      <a href="#app">The Game</a>
-      <a href="#privacy">Privacy</a>
-      <a href="#contact">Contact</a>
+      <a href="#app" onclick="gtag('event','click',{event_category:'nav',event_label:'the_game'})">The Game</a>
+      <a href="#privacy" onclick="gtag('event','click',{event_category:'nav',event_label:'privacy'})">Privacy</a>
+      <a href="#contact" onclick="gtag('event','click',{event_category:'nav',event_label:'contact'})">Contact</a>
     </div>
   </nav>
 
@@ -286,25 +294,25 @@
       <h1>SelfMade:<br><span>Business Empire</span><br>Simulator</h1>
       <p class="hero-sub">Every empire has small beginnings. Start a business. Invest the earnings. Generate passive income. Your private jet is on standby. Breakfast in Paris, a meeting in London, make it home to your private island for dinner. And tomorrow? Take your family for a tour of the Bahamas on your superyacht. Financial freedom isn't a fantasy — it's SelfMade. Download now.</p>
       <div class="hero-actions">
-        <a href="game.html" target="_blank" class="btn-primary">▶ Play Now — Free</a>
-        <a href="#app" class="btn-outline">Learn More</a>
+        <a href="game.html" target="_blank" class="btn-primary" onclick="gtag('event','play_now_click',{event_category:'cta',event_label:'hero_play_now'})">▶ Play Now — Free</a>
+        <a href="#app" class="btn-outline" onclick="gtag('event','click',{event_category:'cta',event_label:'hero_learn_more'})">Learn More</a>
       </div>
     </div>
   </section>
 
   <!-- FEATURES -->
   <div class="features">
-    <div class="feature">
+    <div class="feature" onclick="gtag('event','click',{event_category:'feature',event_label:'build'})">
       <div class="feature-icon">🏢</div>
       <h3>Build</h3>
       <p>Start a business. Grow it. Scale it into a global empire. Employ thousands. Advance civilisation. Impact GDP. Pioneer life as we know it.</p>
     </div>
-    <div class="feature">
+    <div class="feature" onclick="gtag('event','click',{event_category:'feature',event_label:'invest'})">
       <div class="feature-icon">📈</div>
       <h3>Invest</h3>
       <p>Compound your interest. Invest in the stock market. Pick the next big thing. Build generational wealth and make a difference in this world.</p>
     </div>
-    <div class="feature">
+    <div class="feature" onclick="gtag('event','click',{event_category:'feature',event_label:'lifestyle'})">
       <div class="feature-icon">🌏</div>
       <h3>Lifestyle</h3>
       <p>Find your dream home. Spend summer beachfront in Australia, Christmas in your New York penthouse. Your private jet is always waiting. Retreat to your private island when the world gets loud. Watch the game aboard your superyacht. Read your next novel from the window of your London townhouse.</p>
@@ -321,7 +329,7 @@
       <p style="color:var(--gold);font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;margin-top:8px;">Coming soon &nbsp;·&nbsp; iOS &amp; Android</p>
     </div>
     <div>
-      <img class="app-img" src="selfmade-hero.png" alt="SelfMade gameplay" onclick="document.getElementById('lightbox-img').src=this.src;document.getElementById('lightbox').classList.add('active')">
+      <img class="app-img" src="selfmade-hero.png" alt="SelfMade gameplay" onclick="gtag('event','screenshot_click',{event_category:'engagement',event_label:'app_screenshot'});document.getElementById('lightbox-img').src=this.src;document.getElementById('lightbox').classList.add('active')">
     </div>
   </section>
 
@@ -356,7 +364,7 @@
       <p>We may update this policy from time to time. Any changes will be reflected on this page with an updated date. Continued use of the App after any changes constitutes acceptance of the updated policy.</p>
 
       <h3>Contact</h3>
-      <p>Questions about this privacy policy? Contact us at <a href="mailto:admin@cromdaleholdings.com" style="color:var(--gold)">admin@cromdaleholdings.com</a>.</p>
+      <p>Questions about this privacy policy? Contact us at <a href="mailto:admin@cromdaleholdings.com" style="color:var(--gold)" onclick="gtag('event','click',{event_category:'contact',event_label:'privacy_email'})">admin@cromdaleholdings.com</a>.</p>
       <p style="margin-top:16px;">Cromdale Holdings Pty Ltd, Australia</p>
     </div>
   </div>
@@ -365,12 +373,12 @@
   <div class="contact" id="contact">
     <h2>Get in Touch</h2>
     <p>Support, feedback, or general enquiries:</p>
-    <p><a href="mailto:admin@cromdaleholdings.com">admin@cromdaleholdings.com</a></p>
+    <p><a href="mailto:admin@cromdaleholdings.com" onclick="gtag('event','click',{event_category:'contact',event_label:'contact_email'})">admin@cromdaleholdings.com</a></p>
     <p style="margin-top:24px;font-size:13px;">Cromdale Holdings Pty Ltd &mdash; Australia</p>
   </div>
 
   <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <div class="lightbox" id="lightbox" onclick="gtag('event','lightbox_close',{event_category:'engagement',event_label:'screenshot_lightbox'});this.classList.remove('active')">
     <div class="lightbox-close" onclick="document.getElementById('lightbox').classList.remove('active')">&times;</div>
     <img id="lightbox-img" src="" alt="SelfMade screenshot">
   </div>
@@ -378,8 +386,34 @@
   <!-- FOOTER -->
   <footer>
     <p>&copy; 2026 Cromdale Holdings Pty Ltd. All rights reserved.</p>
-    <p><a href="#privacy">Privacy Policy</a></p>
+    <p><a href="#privacy" onclick="gtag('event','click',{event_category:'footer',event_label:'privacy_policy'})">Privacy Policy</a></p>
   </footer>
+
+  <script>
+    // Scroll depth tracking — fires once each at 25%, 50%, 75%, 90%
+    var scrollMilestones = {25:false, 50:false, 75:false, 90:false};
+    window.addEventListener('scroll', function(){
+      var pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+      [25,50,75,90].forEach(function(m){
+        if(!scrollMilestones[m] && pct >= m){
+          scrollMilestones[m] = true;
+          gtag('event','scroll_depth',{event_category:'engagement',event_label:'scroll_'+m+'pct',value:m});
+        }
+      });
+    });
+
+    // Time on page — fires at 30s, 60s, 3min
+    [30000, 60000, 180000].forEach(function(ms){
+      setTimeout(function(){
+        gtag('event','time_on_page',{event_category:'engagement',event_label:'time_'+Math.round(ms/1000)+'s',value:Math.round(ms/1000)});
+      }, ms);
+    });
+
+    // Track when game tab is opened and returned to
+    document.addEventListener('visibilitychange', function(){
+      gtag('event', document.hidden ? 'page_hidden' : 'page_visible', {event_category:'engagement',event_label:'visibility'});
+    });
+  </script>
 
 </body>
 </html>
