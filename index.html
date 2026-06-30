@@ -250,29 +250,38 @@
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
       .hero {
-        min-height: 100svh;
+        min-height: 0;
+        display: block;
+        position: relative;
       }
       .hero-img {
-        position: absolute;
-        top: 0; left: 0;
+        position: static;
+        display: block;
         width: 100%;
         height: auto;
         object-fit: contain;
-        object-position: top center;
       }
       .hero-overlay {
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        top: auto;
+        inset: auto 0 0 0;
+        height: 40%;
         background: linear-gradient(
           to bottom,
-          rgba(8,8,8,0.1) 0%,
-          rgba(8,8,8,0.25) 40%,
-          rgba(8,8,8,0.85) 75%,
+          rgba(8,8,8,0) 0%,
+          rgba(8,8,8,0.7) 60%,
           rgba(8,8,8,1) 100%
         );
+        pointer-events: none;
       }
       .hero-content {
-        padding: 80px 24px 60px;
+        position: relative;
+        padding: 40px 24px 60px;
         width: 100%;
         max-width: 100%;
+        margin-top: -1px; /* eliminate any sub-pixel gap between image and content */
+        background: #080808;
       }
       .hero h1 { font-size: clamp(32px, 9vw, 52px); }
       .hero-sub { font-size: 15px; max-width: 100%; }
@@ -306,7 +315,7 @@
     <div class="hero-content">
       <div class="hero-eyebrow">Cromdale Holdings Pty Ltd</div>
       <h1>SelfMade:<br><span>Business Empire</span><br>Simulator</h1>
-      <p class="hero-sub">Every empire has small beginnings. Start a business. Invest the earnings. Generate passive income. Your private jet is on standby. Breakfast in Paris, a meeting in London, make it home to your private island for dinner. And tomorrow? Take your family for a tour of the Bahamas on your superyacht. Financial freedom isn't a fantasy — it's SelfMade. Download now.</p>
+      <p class="hero-sub">Your private jet is on standby. Breakfast in Paris, a meeting in London, make it home to your private island for dinner. And tomorrow? Take your family for a tour of the Bahamas on your superyacht. Financial freedom isn't a fantasy — it's SelfMade. Download now.</p>
       <div class="hero-actions">
         <a href="game.html" target="_blank" class="btn-primary" onclick="gtag('event','play_now_click',{event_category:'cta',event_label:'hero_play_now'})">▶ Play Now — Free</a>
         <a href="#app" class="btn-outline" onclick="gtag('event','click',{event_category:'cta',event_label:'hero_learn_more'})">Learn More</a>
@@ -338,7 +347,7 @@
     <div>
       <div class="app-label">SelfMade — Business Empire Simulator</div>
       <h2>Your Fantasy Life,<br>No Limits</h2>
-      <p>Start with nothing. Build a business. Reinvest the profits into stocks, property, and passive income streams that compound while you're not even watching. Then spend it — on the things that signal you've arrived.</p>
+      <p>Start with nothing. Build a business. Reinvest the profits into stocks, property, and passive income streams that compound while you're not even watching.</p>
       <p>SelfMade is a passive income fantasy game with idle clicker roots — putting you in control of a fictional financial empire that grows even while you sleep. The further you go, the bigger the decisions, and the more extraordinary the life you can build.</p>
       <p style="color:var(--gold);font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;margin-top:8px;">Coming soon &nbsp;·&nbsp; iOS &amp; Android</p>
     </div>
