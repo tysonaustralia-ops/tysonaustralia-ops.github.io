@@ -550,7 +550,7 @@
       flex-direction: column;
       align-items: center;
       overflow: hidden;
-      height: 52px;
+      height: 44px;
       position: relative;
     }
     .gp-digit-strip {
@@ -561,19 +561,19 @@
     .gp-digit {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: 42px;
-      line-height: 52px;
+      font-size: 34px;
+      line-height: 44px;
       color: #F0CC72;
-      letter-spacing: -1px;
-      width: 28px;
+      letter-spacing: -0.5px;
+      width: 24px;
       text-align: center;
       user-select: none;
     }
     .gp-sep {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: 42px;
-      line-height: 52px;
+      font-size: 34px;
+      line-height: 44px;
       color: rgba(240,204,114,0.45);
       user-select: none;
       padding: 0 1px;
@@ -581,11 +581,11 @@
     .gp-prefix {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: 28px;
-      line-height: 52px;
+      font-size: 22px;
+      line-height: 44px;
       color: rgba(240,204,114,0.6);
       user-select: none;
-      padding-right: 3px;
+      padding-right: 2px;
       align-self: center;
     }
     .gp-income {
@@ -596,29 +596,6 @@
       letter-spacing: 0.04em;
       margin-bottom: 14px;
     }
-    .gp-notifications {
-      min-height: 44px;
-    }
-    .gp-notif {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 8px;
-      padding: 7px 10px;
-      font-size: 12px;
-      font-family: 'DM Sans', sans-serif;
-      color: rgba(240,237,230,0.8);
-      animation: gp-notif-in 0.35s ease;
-    }
-    @keyframes gp-notif-in {
-      from { opacity:0; transform:translateY(5px); }
-      to   { opacity:1; transform:translateY(0); }
-    }
-    .gp-notif-icon { font-size: 15px; flex-shrink:0; }
-    .gp-notif-gold { color: #F0CC72; font-weight: 600; }
-    .gp-notif-green { color: #60dd88; font-weight: 600; }
     .game-preview-sub {
       margin-top: 24px;
       font-size: 13px;
@@ -630,11 +607,11 @@
     @media (max-width: 768px) {
       .game-preview { padding: 60px 24px; }
       .game-preview-card { padding: 20px 18px 18px; }
-      .gp-digit { font-size: 32px; line-height: 42px; width: 22px; }
-      .gp-sep { font-size: 32px; line-height: 42px; }
-      .gp-prefix { font-size: 20px; line-height: 42px; }
-      .gp-digit-col { height: 42px; }
-      .gp-odo-wrap { min-height: 42px; }
+      .gp-digit { font-size: 28px; line-height: 38px; width: 20px; }
+      .gp-sep { font-size: 28px; line-height: 38px; }
+      .gp-prefix { font-size: 18px; line-height: 38px; }
+      .gp-digit-col { height: 38px; }
+      .gp-odo-wrap { min-height: 38px; }
     }
   </style>
 </head>
@@ -686,7 +663,6 @@
         <!-- odometer digits injected by JS -->
       </div>
       <div class="gp-income" id="gp-income">+$0.00/re passive</div>
-      <div class="gp-notifications" id="gp-notifications"></div>
     </div>
     <p class="game-preview-sub">This is what SelfMade looks like. Your empire grows in real time — even when you're not watching.</p>
   </section>
@@ -938,9 +914,18 @@
   (function(){
     var ROLL_MS   = 220;
     var START_VAL = 0;
-    var INCOME_PS = 33000/3600;   // $33,000/hr — hits $1M in ~30 mins
+    var BASE_INCOME_HR = 1000;    // starts at $1,000/hr
+    var INCOME_GROWTH_HR = 1000;  // grows by $1,000/hr every minute
+    var sessionStart = null;      // set on first RAF tick
+
+    function currentIncomePs(){
+      if(!sessionStart) return BASE_INCOME_HR / 3600;
+      var minutesOnPage = (Date.now() - sessionStart) / 60000;
+      var hrRate = BASE_INCOME_HR + (INCOME_GROWTH_HR * minutesOnPage);
+      return hrRate / 3600;
+    }
     var MAX_VAL   = 1000000;      // rolls into PLAY NOW at $1,000,000
-    var MIN_DIGITS = 7;           // always show at least 7 integer digits so layout stays stable
+    var MIN_DIGITS = 1;           // no leading zeros — grows naturally with value
 
     var centVal = START_VAL * 100;
     var wrap    = document.getElementById('gp-odo-wrap');
@@ -1029,14 +1014,14 @@
           // set initial position
           var pos = parseInt(ch);
           c.strip.style.transition = 'none';
-          c.strip.style.transform = 'translateY(-' + (pos * 52) + 'px)';
+          c.strip.style.transform = 'translateY(-' + (pos * 44) + 'px)';
           cols.push(c);
         }
       });
     }
 
     buildDisplay(START_VAL);
-    if(incEl) incEl.textContent = fmtIncome(INCOME_PS);
+    if(incEl) incEl.textContent = fmtIncome(BASE_INCOME_HR / 3600);
 
     // ── roll a column to a target digit ──
     function rollCol(c, toDigit, h){
@@ -1061,11 +1046,17 @@
     var rafId;
 
     function raf(ts){
-      if(!lastT) { lastT = ts; rafId = requestAnimationFrame(raf); return; }
+      if(!lastT) {
+        lastT = ts;
+        sessionStart = Date.now();
+        rafId = requestAnimationFrame(raf);
+        return;
+      }
       var dt = (ts - lastT) / 1000;
       lastT = ts;
 
-      centVal += INCOME_PS * 100 * dt;
+      var incomePs = currentIncomePs();
+      centVal += incomePs * 100 * dt;
 
       // When cap is hit — roll each column into its PLAY NOW letter
       if(centVal > MAX_VAL * 100){
@@ -1101,7 +1092,7 @@
       }
 
       // Update each digit column
-      var h = wrap.querySelector('.gp-digit') ? wrap.querySelector('.gp-digit').offsetHeight || 52 : 52;
+      var h = wrap.querySelector('.gp-digit') ? wrap.querySelector('.gp-digit').offsetHeight || 44 : 44;
       var str = Math.floor(dollarVal).toString();
       while(str.length < MIN_DIGITS) str = '0' + str;
       var cents = Math.floor((dollarVal * 100) % 100);
@@ -1114,34 +1105,10 @@
         rollCol(cols[j], allDigits[j], h);
       }
 
-      if(incEl) incEl.textContent = fmtIncome(INCOME_PS);
+      if(incEl) incEl.textContent = fmtIncome(incomePs);
       rafId = requestAnimationFrame(raf);
     }
     rafId = requestAnimationFrame(raf);
-
-    // ── notification feed ──
-    var notifEl = document.getElementById('gp-notifications');
-    var notifs = [
-      { icon:'🏢', text:'<span class="gp-notif-gold">Tech Startup</span> earned <span class="gp-notif-green">+$12,840</span>' },
-      { icon:'📈', text:'<span class="gp-notif-gold">SEM0</span> US Semiconductors up 4.2% — portfolio gain <span class="gp-notif-green">+$8,420</span>' },
-      { icon:'🏠', text:'Rent received from <span class="gp-notif-gold">NYC Penthouse</span> <span class="gp-notif-green">+$24,500</span>' },
-      { icon:'⚡', text:'<span class="gp-notif-gold">Coffee Chain</span> earned <span class="gp-notif-green">+$6,210</span>' },
-      { icon:'📈', text:'<span class="gp-notif-gold">AIX0</span> US AI Companies surge 5.8% — <span class="gp-notif-green">+$31,800</span>' },
-      { icon:'🏢', text:'<span class="gp-notif-gold">Media Empire</span> earned <span class="gp-notif-green">+$48,200</span>' },
-      { icon:'🏠', text:'<span class="gp-notif-gold">London Townhouse</span> rental income <span class="gp-notif-green">+$18,700</span>' },
-      { icon:'📈', text:'<span class="gp-notif-gold">BTC</span> Bytecoin up 3.1% — crypto gain <span class="gp-notif-green">+$14,200</span>' },
-      { icon:'🏢', text:'<span class="gp-notif-gold">Airline Fleet</span> earned <span class="gp-notif-green">+$92,400</span>' },
-    ];
-    var ni = 0;
-
-    function addNotif(){
-      if(!notifEl) return;
-      var n = notifs[ni % notifs.length];
-      ni++;
-      notifEl.innerHTML = '<div class="gp-notif"><span class="gp-notif-icon">' + n.icon + '</span><span>' + n.text + '</span></div>';
-    }
-    setTimeout(function(){ addNotif(); }, 1500);
-    setInterval(addNotif, 4000);
   })();
   </script>
 </body>
