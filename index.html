@@ -596,7 +596,7 @@
       transition: transform 220ms linear;
     }
     .gp-digit {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Times New Roman', Times, serif;
       font-weight: 800;
       font-size: 34px;
       line-height: 46px;
@@ -607,7 +607,7 @@
       user-select: none;
     }
     .gp-sep {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Times New Roman', Times, serif;
       font-weight: 800;
       font-size: 34px;
       line-height: 46px;
@@ -616,7 +616,7 @@
       padding: 0 2px;
     }
     .gp-prefix {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Times New Roman', Times, serif;
       font-weight: 800;
       font-size: 22px;
       line-height: 46px;
@@ -667,7 +667,41 @@
       color: rgba(0,0,0,0.4);
       text-transform: uppercase;
     }
-    .game-preview-sub {
+    .gp-tap-hint {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Syne', sans-serif;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      color: rgba(0,0,0,0.3);
+      text-transform: uppercase;
+      pointer-events: none;
+      z-index: 2;
+      transition: opacity 0.4s;
+    }
+    .gp-float {
+      position: fixed;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      color: #60dd88;
+      pointer-events: none;
+      z-index: 9999;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      animation: gp-float-up 1s ease forwards;
+    }
+    @keyframes gp-float-up {
+      0%   { opacity: 1; transform: translateY(0) scale(1); }
+      60%  { opacity: 1; transform: translateY(-40px) scale(1.1); }
+      100% { opacity: 0; transform: translateY(-70px) scale(0.9); }
+    }
+    .game-preview-card:active {
+      transform: scale(0.98);
+      transition: transform 0.08s;
+    }
       margin-top: 24px;
       font-size: 13px;
       color: var(--muted);
@@ -722,7 +756,7 @@
   <!-- GAME PREVIEW -->
   <section class="game-preview" id="preview">
     <div class="game-preview-label">Your net worth, right now</div>
-    <div class="game-preview-card">
+    <div class="game-preview-card" id="gp-card" onclick="gpCardClick(event)" style="cursor:pointer">
       <div class="gp-top">
         <div class="gp-eyebrow">TOTAL BALANCE</div>
       </div>
@@ -737,6 +771,7 @@
         <div class="gp-card-chip"></div>
         <div class="gp-card-network">SelfMade™</div>
       </div>
+      <div class="gp-tap-hint" id="gp-tap-hint">TAP TO EARN</div>
     </div>
     <p class="game-preview-sub">This is what SelfMade looks like. Your empire grows in real time — even when you're not watching.</p>
   </section>
@@ -984,18 +1019,41 @@
     requestAnimationFrame(tick);
   })();
 
+  // ─── CARD CLICK ────────────────────────────────────────────────
+  var gpClickCount = 0;
+  function gpCardClick(e){
+    // Add $1k/hr permanently
+    clickBonusHr += 1000;
+    gpClickCount++;
+
+    // Hide tap hint after first click
+    var hint = document.getElementById('gp-tap-hint');
+    if(hint) hint.style.opacity = '0';
+
+    // Floating +$1k popup at click position
+    var popup = document.createElement('div');
+    popup.className = 'gp-float';
+    popup.textContent = '+$1k/hr';
+    popup.style.left = (e.clientX - 24) + 'px';
+    popup.style.top  = (e.clientY - 16) + 'px';
+    document.body.appendChild(popup);
+    setTimeout(function(){ popup.remove(); }, 1000);
+  }
+
   // ─── ODOMETER PREVIEW ──────────────────────────────────────────
   (function(){
     var ROLL_MS   = 220;
     var START_VAL = 0;
     var BASE_INCOME_HR = 1000;    // starts at $1,000/hr
     var INCOME_GROWTH_HR = 1000;  // grows by $1,000/hr every minute
+    var CLICK_BONUS_HR = 1000;    // each card click adds $1,000/hr permanently
+    var clickBonusHr = 0;         // accumulated click bonus
     var sessionStart = null;      // set on first RAF tick
 
     function currentIncomePs(){
       if(!sessionStart) return BASE_INCOME_HR / 3600;
       var minutesOnPage = (Date.now() - sessionStart) / 60000;
-      var hrRate = BASE_INCOME_HR + (INCOME_GROWTH_HR * minutesOnPage);
+      var hrRate = BASE_INCOME_HR + (INCOME_GROWTH_HR * minutesOnPage) + clickBonusHr;
       return hrRate / 3600;
     }
     var MAX_VAL   = 1000000;      // rolls into PLAY NOW at $1,000,000
