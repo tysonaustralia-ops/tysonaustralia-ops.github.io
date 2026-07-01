@@ -727,7 +727,7 @@
       <h1>SelfMade:<br><span>Business Empire</span><br>Simulator</h1>
       <p class="hero-sub">Your private jet is on standby. Breakfast in Paris, a meeting in London, make it home to your private island for dinner. And tomorrow? Take your family for a tour of the Bahamas on your superyacht. Financial freedom isn't a fantasy — it's SelfMade. Download now.</p>
       <div class="hero-actions">
-        <a href="game.html" target="_blank" class="btn-primary" onclick="gtag('event','play_now_click',{event_category:'cta',event_label:'hero_play_now'})">▶ Play Now — Free</a>
+        <a href="#app" class="btn-primary" onclick="gtag('event','play_now_click',{event_category:'cta',event_label:'hero_play_now'})">▶ Play Now — Free</a>
         <a href="#app" class="btn-outline" onclick="gtag('event','click',{event_category:'cta',event_label:'hero_learn_more'})">Learn More</a>
       </div>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;align-items:center">
@@ -1007,6 +1007,7 @@
   })();
 
   // ─── CARD CLICK ────────────────────────────────────────────────
+  var clickBonusHr = 0;  // outer scope — shared between card click and odometer IIFE
   var gpClickCount = 0;
   function gpCardClick(e){
     clickBonusHr += 1000;
@@ -1027,7 +1028,6 @@
     var ROLL_MS   = 220;
     var START_VAL = 0;
     var CLICK_BONUS_HR = 1000;    // each card click adds $1,000/hr permanently
-    var clickBonusHr = 0;         // accumulated click bonus
     var sessionStart = null;
 
     function currentIncomePs(){
@@ -1179,12 +1179,12 @@
         // After all columns have rolled, update income text and make it a link
         var totalDelay = cols.length * 80 + 400;
         setTimeout(function(){
-          if(incEl) incEl.innerHTML = '<a href="game.html" target="_blank" style="color:#60dd88;text-decoration:none;font-weight:600">▶ Play Now — Free</a>';
+          if(incEl) incEl.innerHTML = '<a href="#app" style="color:#60dd88;text-decoration:none;font-weight:600">▶ Play Now — Free</a>';
           // Hide separators and prefix so only the letters remain clean
           wrap.querySelectorAll('.gp-sep, .gp-prefix').forEach(function(el){ el.style.opacity='0'; });
           // Make the whole card clickable
           wrap.style.cursor = 'pointer';
-          wrap.onclick = function(){ window.open('game.html','_blank'); };
+          wrap.onclick = function(){ window.location.hash = '#app'; };
         }, totalDelay);
         return;
       }
