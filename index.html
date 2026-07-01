@@ -1044,9 +1044,10 @@
     // ── format helpers ──
     function fmtIncome(v){
       var perHour = v * 3600;
-      if(perHour >= 1e6) return '+$' + (perHour/1e6).toFixed(2) + 'm/hr passive';
-      if(perHour >= 1e3) return '+$' + (perHour/1e3).toFixed(2) + 'k/hr passive';
-      return '+$' + perHour.toFixed(2) + '/hr passive';
+      function fmt(n){ return n % 1 === 0 ? n.toFixed(0) : n.toFixed(1).replace(/\.0$/, ''); }
+      if(perHour >= 1e6) return '+$' + fmt(perHour/1e6) + 'm/hr passive';
+      if(perHour >= 1e3) return '+$' + fmt(perHour/1e3) + 'k/hr passive';
+      return '+$' + Math.round(perHour) + '/hr passive';
     }
 
     // ── build digit columns ──
