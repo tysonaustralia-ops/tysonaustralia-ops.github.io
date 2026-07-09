@@ -1142,6 +1142,100 @@
     }
 
     buildDisplay(START_VAL);
+    var curIntDigits = MIN_DIGITS; // how many integer-part digit columns currently exist
+
+    function numCommas(digitCount){ return Math.max(0, Math.floor((digitCount - 1) / 3)); }
+
+    // Correctly-grouped integer-part chars for a value, e.g. 12345 -> ['1','2',',','3','4','5']
+    function intPartsFor(dollarVal){
+      var str = Math.floor(dollarVal).toString();
+      while(str.length < MIN_DIGITS) str = '0' + str;
+      var parts = [];
+      var n = str.length;
+      for(var i=0;i<n;i++){
+        parts.push(str[i]);
+        var rem = n - i - 1;
+        if(rem > 0 && rem % 3 === 0) parts.push(',');
+      }
+      return parts;
+    }
+
+    // The 21st strip slot (PLAY NOW letter) depends on a column's left-to-right
+    // position, which shifts whenever new leading digits are added in front of
+    // it. Keep it in sync rather than baking it in once at creation time.
+    function ensureLetterSlot(c, letter){
+      var kids = c.strip.children;
+      if(letter){
+        if(kids.length === 21){ kids[20].textContent = letter; }
+        else if(kids.length === 20){
+          var l = document.createElement('div');
+          l.className = 'gp-digit';
+          l.textContent = letter;
+          c.strip.appendChild(l);
+        }
+      } else if(kids.length === 21){
+        c.strip.removeChild(kids[20]);
+      }
+    }
+
+    // Smoothly add whatever new leading digit columns / commas are needed for
+    // dollarVal, instead of tearing down and rebuilding the whole display.
+    function growLeadingDigits(dollarVal){
+      var newIntDigits = Math.max(Math.floor(dollarVal).toString().length, MIN_DIGITS);
+      if(newIntDigits <= curIntDigits) return;
+
+      var intParts   = intPartsFor(dollarVal);
+      var oldPartsLen = curIntDigits + numCommas(curIntDigits);
+      var newPartsLen = newIntDigits + numCommas(newIntDigits);
+      var prefixParts = intParts.slice(0, newPartsLen - oldPartsLen);
+
+      var anchor = wrap.children[1] || null; // right after the $ prefix
+      var newCols = [];
+      var toAnimate = [];
+
+      prefixParts.forEach(function(ch){
+        var el;
+        if(ch === ','){
+          el = makeSep(',');
+        } else {
+          var digit = parseInt(ch, 10);
+          var c = makeCol(digit, null);
+          c.strip.style.transition = 'none';
+          c.strip.style.transform  = 'translateY(-' + (digit * 46) + 'px)';
+          newCols.push(c);
+          el = c.col;
+        }
+        wrap.insertBefore(el, anchor);
+        // Measure the element's natural width at full size before clamping it,
+        // so we can animate max-width from 0 up to that value (rather than
+        // scaleX, which doesn't affect layout — that let siblings snap
+        // sideways instantly instead of easing into place).
+        var natW = el.getBoundingClientRect().width;
+        el.style.overflow = 'hidden';
+        el.style.maxWidth = '0px';
+        el.style.opacity = '0';
+        toAnimate.push({el: el, w: natW});
+      });
+
+      // Commit the collapsed starting state on its own frame, then grow on
+      // the next one — a single synchronous reflow isn't reliably enough to
+      // make transitions fire in every browser.
+      requestAnimationFrame(function(){
+        toAnimate.forEach(function(item){ void item.el.offsetWidth; });
+        requestAnimationFrame(function(){
+          toAnimate.forEach(function(item){
+            item.el.style.transition = 'max-width ' + ROLL_MS + 'ms ease, opacity ' + ROLL_MS + 'ms ease';
+            item.el.style.maxWidth = item.w + 'px';
+            item.el.style.opacity = '1';
+          });
+        });
+      });
+
+      cols = newCols.concat(cols);
+      cols.forEach(function(c, i){ ensureLetterSlot(c, PLAYNOW[i] || null); });
+      curIntDigits = newIntDigits;
+    }
+
     if(incEl) incEl.textContent = '+$0/hr passive';
 
     // ── roll a column to a target digit ──
@@ -1154,16 +1248,17 @@
       if(toDigit < cur) targetY += 10 * h; // wrap around
       c.strip.style.transition = 'transform ' + ROLL_MS + 'ms linear';
       c.strip.style.transform = 'translateY(-' + targetY + 'px)';
-      setTimeout(function(){
+      if(c._rollTimeout) clearTimeout(c._rollTimeout);
+      c._rollTimeout = setTimeout(function(){
         // snap to clean position
         c.strip.style.transition = 'none';
         c.strip.style.transform = 'translateY(-' + (toDigit * h) + 'px)';
+        c._rollTimeout = null;
       }, ROLL_MS + 20);
     }
 
     // ── RAF loop ──
     var lastT = null;
-    var lastRebuild = 0;
     var rafId;
 
     function raf(ts){
@@ -1204,12 +1299,8 @@
 
       var dollarVal = centVal / 100;
 
-      // Rebuild display only if digit count changes above MIN_DIGITS
-      var newLen = Math.max(Math.floor(dollarVal).toString().length, MIN_DIGITS);
-      if(!lastRebuild || newLen !== lastRebuild){
-        buildDisplay(dollarVal);
-        lastRebuild = newLen;
-      }
+      // Smoothly add any new leading digit(s)/comma(s) instead of a full rebuild
+      growLeadingDigits(dollarVal);
 
       // Update each digit column
       var h = 46;
