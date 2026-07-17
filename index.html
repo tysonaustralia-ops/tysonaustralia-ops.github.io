@@ -324,17 +324,36 @@
       border-bottom: 1px solid var(--border);
       padding: 24px 0;
     }
+    .faq-item summary {
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: '+';
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--gold-lt);
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+    .faq-item[open] summary::after { content: '\2212'; }
     .faq-item h3 {
       font-family: 'Syne', sans-serif;
       font-weight: 700;
       font-size: 16px;
       color: var(--gold-lt);
-      margin-bottom: 10px;
+      margin-bottom: 0;
     }
     .faq-item p {
       font-size: 14px;
       color: var(--muted);
       line-height: 1.7;
+      margin-top: 14px;
     }
 
     /* PRIVACY */
@@ -346,10 +365,28 @@
       max-width: 720px; margin: 0 auto;
       padding: 80px 48px;
     }
+    .privacy summary {
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .privacy summary::-webkit-details-marker { display: none; }
+    .privacy summary::after {
+      content: '+';
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .privacy[open] summary::after { content: '\2212'; }
     .privacy h2 {
       font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: 28px; margin-bottom: 8px;
+      font-size: 28px; margin-bottom: 0;
     }
+    .privacy-body { margin-top: 24px; }
     .privacy .updated { font-size: 13px; color: var(--muted); margin-bottom: 40px; }
     .privacy h3 {
       font-family: 'Syne', sans-serif; font-weight: 700;
@@ -587,13 +624,6 @@
       text-align: center;
     }
     .gp-balance {
-      /* Times New Roman instead of the display font (Syne) — Syne doesn't
-         actually implement the tabular-nums OpenType feature, so asking for
-         it did nothing and the number kept shaking as digits of different
-         widths swapped in every render. Times New Roman's digits are all
-         drawn at the same fixed advance width by design (same trick the
-         real app's odometer used), so this fixes it for good regardless of
-         font-feature support. */
       font-family: 'Times New Roman', Times, serif;
       font-weight: 700;
       font-size: clamp(39px, 9vw, 51px);
@@ -608,6 +638,16 @@
       color: inherit;
       text-decoration: none;
     }
+    /* Relying on the font's own tabular-figure metrics (Times New Roman,
+       tabular-nums) still let the number shudder — that only works if the
+       exact font is actually installed, and falls back silently to
+       whatever serif IS available otherwise, which may not have matched
+       digit widths. This is the actual fix: every character of the
+       formatted balance is put in its own fixed-width box via JS, so a
+       digit swapping in place can never change layout width — a CSS
+       box-model guarantee, not something dependent on font support. */
+    .gp-digit-ch { display: inline-block; width: 0.64em; text-align: center; }
+    .gp-punct-ch { display: inline-block; text-align: center; }
     .gp-card-details-row {
       display: flex;
       justify-content: space-between;
@@ -773,45 +813,46 @@
   <section class="faq" id="faq">
     <h2>Frequently Asked Questions</h2>
     <div class="faq-list">
-      <div class="faq-item">
-        <h3>What is SelfMade?</h3>
+      <details class="faq-item">
+        <summary><h3>What is SelfMade?</h3></summary>
         <p>SelfMade: Idle Billionaire Tycoon is a free idle tycoon game for iOS and Android. You start with nothing, build businesses, invest in the stock market, buy real estate, and collect luxury lifestyle assets — private jets, superyachts, and private islands — as your passive income empire grows.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Is SelfMade free to play?</h3>
+      </details>
+      <details class="faq-item">
+        <summary><h3>Is SelfMade free to play?</h3></summary>
         <p>Yes. SelfMade is completely free to download and play on both iOS and Android. The core game — building businesses, investing, and acquiring lifestyle assets — requires no purchases.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Does SelfMade work offline?</h3>
+      </details>
+      <details class="faq-item">
+        <summary><h3>Does SelfMade work offline?</h3></summary>
         <p>Yes. SelfMade is an idle game, which means your businesses and investments continue earning passive income even while you're not playing. Come back after hours or days and collect everything you've earned.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Is SelfMade a cozy game?</h3>
+      </details>
+      <details class="faq-item">
+        <summary><h3>Is SelfMade a cozy game?</h3></summary>
         <p>SelfMade has a lot in common with cozy games — there's no combat, no fail states, and no pressure to play constantly since your businesses and investments keep earning while you're offline. It's a relaxed, low-stakes way to build something over time. Part of that comfort comes from where the game takes you: tucked away in a private jet cabin at cruising altitude, stretched out on the deck of your own yacht, or simply home in a beautiful house that's entirely yours — quiet, safe places, away from everything, that are as calming to look at as they are satisfying to have earned. That said, SelfMade also has real depth for players who want it, with a live stock market, a global rich list, and genuine strategic decisions along the way.</p>
-      </div>
-      <div class="faq-item">
-        <h3>What kind of game is SelfMade?</h3>
+      </details>
+      <details class="faq-item">
+        <summary><h3>What kind of game is SelfMade?</h3></summary>
         <p>SelfMade is an idle clicker game and incremental simulator in the tycoon genre. It combines business management, stock market trading, real estate investment, and a luxury lifestyle simulator into a single mobile game.</p>
-      </div>
-      <div class="faq-item">
-        <h3>What can I do in SelfMade?</h3>
+      </details>
+      <details class="faq-item">
+        <summary><h3>What can I do in SelfMade?</h3></summary>
         <p>You can build and upgrade businesses across multiple industries, trade stocks and crypto on a live in-game market, invest in real estate properties around the world, buy luxury assets including private jets, superyachts, jewellery and fashion, and compete on a global rich list. The game features a full passive income system that grows even when you're not playing.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Is SelfMade similar to other idle tycoon games?</h3>
+      </details>
+      <details class="faq-item">
+        <summary><h3>Is SelfMade similar to other idle tycoon games?</h3></summary>
         <p>SelfMade shares the satisfying idle business-building loop of the tycoon genre, but goes significantly deeper — with a real-time stock market, real estate portfolio system, crypto trading, luxury asset collecting, and a rich list to climb. It's built for players who want more depth and realism from the incremental genre.</p>
-      </div>
+      </details>
     </div>
   </section>
 
   <!-- PRIVACY -->
   <div class="privacy-wrap" id="privacy">
-    <div class="privacy">
-      <h2>Privacy Policy</h2>
+    <details class="privacy">
+      <summary><h2>Privacy Policy</h2></summary>
+      <div class="privacy-body">
       <p class="updated">Last updated: July 2026</p>
 
       <h3>Overview</h3>
-      <p>Cromdale Holdings Pty Ltd ("we", "us", "our") is an Australian company that develops and operates SelfMade: Idle Billionaire Tycoon ("the App"). This Privacy Policy applies to all users worldwide. By using the App, you agree to this policy. We encourage you to also be aware of the privacy laws applicable in your own jurisdiction.</p>
+      <p>Cromdale Holdings Pty Ltd ("we", "us", "our") is an Australian company that develops and operates SelfMade: Idle Billionaire Tycoon ("the App"). This Privacy Policy applies to all users worldwide. By using the App, you agree to this policy.</p>
 
       <h3>Data We Collect</h3>
       <p>SelfMade does not collect, transmit, or store any personal data. No account registration is required. No personal information is requested or stored by us at any time.</p>
@@ -820,7 +861,7 @@
       <p>All game progress is saved locally on your device only using your device's built-in storage. We have no access to your save data.</p>
 
       <h3>Analytics</h3>
-      <p>SelfMade uses PostHog and Google Analytics for anonymous, aggregate analytics (in-app events and page views only). No personally identifiable information is captured. No data is sold or shared with any third party for any purpose.</p>
+      <p>SelfMade does not currently use any third-party analytics or tracking service. No data is sold or shared with any third party for any purpose.</p>
 
       <h3>Age &amp; Parental Responsibility</h3>
       <p>SelfMade is intended for users aged 16 and over. If a minor uses the App, the parent or guardian is solely responsible for supervising that use and for ensuring compliance with applicable local laws. Cromdale Holdings Pty Ltd accepts no liability arising from use of the App by minors.</p>
@@ -828,16 +869,14 @@
       <h3>International Users</h3>
       <p>SelfMade is available globally. As we collect no personal data, there is no cross-border transfer of personal information. Users are responsible for ensuring their use of the App complies with the laws of their own jurisdiction.</p>
 
-      <h3>Your Rights</h3>
-      <p>As we collect no personal data, there is no personal information for us to provide, correct, or delete. If you have questions about your privacy rights under the laws of your jurisdiction, you are welcome to contact us.</p>
-
       <h3>Changes to This Policy</h3>
-      <p>We may update this policy from time to time. Any changes will be reflected on this page with an updated date. Continued use of the App after any change constitutes acceptance of the updated policy.</p>
+      <p>We may update this policy from time to time. Any changes will be reflected with an updated date. Continued use of the App after any change constitutes acceptance of the updated policy.</p>
 
       <h3>Contact</h3>
       <p>Questions about this privacy policy? Contact us at <a href="mailto:admin@cromdaleholdings.com" style="color:var(--gold)" onclick="gtag('event','click',{event_category:'contact',event_label:'privacy_email'})">admin@cromdaleholdings.com</a>.</p>
       <p style="margin-top:16px;">Cromdale Holdings Pty Ltd, Australia</p>
-    </div>
+      </div>
+    </details>
   </div>
 
   <!-- CONTACT -->
@@ -988,8 +1027,21 @@
       return '$' + Math.round(n).toLocaleString('en-US');
     }
 
+    // Each character gets its own fixed-width box (see .gp-digit-ch /
+    // .gp-punct-ch) so swapping "1" for "8" at a given position never
+    // nudges the rest of the number sideways.
+    function renderChars(str){
+      var out = '';
+      for(var i = 0; i < str.length; i++){
+        var ch = str[i];
+        var cls = (ch >= '0' && ch <= '9') ? 'gp-digit-ch' : 'gp-punct-ch';
+        out += '<span class="' + cls + '">' + ch + '</span>';
+      }
+      return out;
+    }
+
     function render(){
-      balEl.textContent = fmtMoney(balance);
+      balEl.innerHTML = renderChars(fmtMoney(balance));
     }
 
     function showPlayNow(){
