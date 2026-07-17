@@ -507,7 +507,16 @@
       color: var(--gold);
       margin-bottom: 24px;
     }
-    /* Credit card — standard 85.6:54 aspect ratio */
+    .gp-container {
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      position: relative;
+    }
+    /* Credit card — standard 85.6:54 aspect ratio, styled to match the real
+       in-app card face (Total Balance / income-per-hr / chip+number / name+brand) */
     .game-preview-card {
       background:
         linear-gradient(135deg,
@@ -519,8 +528,7 @@
           #e8b84b 100%
         );
       border-radius: 16px;
-      padding: 24px 28px 22px;
-      max-width: 420px;
+      padding: 22px 26px 20px;
       width: 100%;
       aspect-ratio: 85.6 / 54;
       box-shadow:
@@ -573,99 +581,64 @@
       color: rgba(0,0,0,0.45);
       text-transform: uppercase;
     }
-    .gp-name {
-      font-family: 'Syne', sans-serif;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.18em;
-      color: rgba(0,0,0,0.5);
-      text-transform: uppercase;
-    }
-    .gp-odo-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0px;
+    .gp-balance-row {
       position: relative;
       z-index: 1;
-      min-height: 52px;
-    }
-    .gp-digit-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      overflow: hidden;
-      height: 46px;
-      position: relative;
-    }
-    .gp-digit-strip {
-      display: flex;
-      flex-direction: column;
-      transition: transform 220ms linear;
-    }
-    .gp-digit {
-      font-family: 'Times New Roman', Times, serif;
-      font-weight: 800;
-      font-size: 34px;
-      line-height: 46px;
-      color: rgba(0,0,0,0.75);
-      letter-spacing: -0.5px;
-      width: 40px;
       text-align: center;
-      user-select: none;
     }
-    .gp-sep {
+    .gp-balance {
+      /* Times New Roman instead of the display font (Syne) — Syne doesn't
+         actually implement the tabular-nums OpenType feature, so asking for
+         it did nothing and the number kept shaking as digits of different
+         widths swapped in every render. Times New Roman's digits are all
+         drawn at the same fixed advance width by design (same trick the
+         real app's odometer used), so this fixes it for good regardless of
+         font-feature support. */
       font-family: 'Times New Roman', Times, serif;
-      font-weight: 800;
-      font-size: 34px;
-      line-height: 46px;
-      color: rgba(0,0,0,0.75);
-      user-select: none;
-      padding: 0 2px;
-    }
-    .gp-prefix {
-      font-family: 'Times New Roman', Times, serif;
-      font-weight: 800;
-      font-size: 22px;
-      line-height: 46px;
-      color: rgba(0,0,0,0.75);
-      user-select: none;
-      padding-right: 3px;
-      align-self: center;
-    }
-    .gp-income {
-      font-size: 11px;
-      color: rgba(0,0,0,0.55);
-      text-align: center;
-      font-family: 'DM Sans', sans-serif;
-      letter-spacing: 0.04em;
-      position: relative;
-      z-index: 1;
-    }
-    .gp-card-numbers {
-      font-family: 'Syne', sans-serif;
-      font-size: 15px;
       font-weight: 700;
-      letter-spacing: 0.18em;
-      color: rgba(0,0,0,0.5);
-      position: relative;
-      z-index: 1;
-      margin-bottom: 4px;
+      font-size: clamp(39px, 9vw, 51px);
+      color: rgba(0,0,0,0.8);
+      letter-spacing: 0;
+      transition: color 0.25s ease;
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: 'tnum' 1;
     }
-    .gp-card-bottom {
+    .gp-balance.gp-balance-down { color: #7a1f1f; }
+    .gp-balance a.gp-play-now {
+      color: inherit;
+      text-decoration: none;
+    }
+    .gp-card-details-row {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
       position: relative;
       z-index: 1;
     }
+    .gp-card-left { display: flex; flex-direction: column; gap: 8px; }
+    .gp-card-right { text-align: right; }
+    .gp-card-numbers {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: rgba(0,0,0,0.5);
+      line-height: 1.4;
+    }
     .gp-card-chip {
-      width: 36px;
-      height: 28px;
+      width: 32px;
+      height: 25px;
       background: linear-gradient(135deg, #d4a832 0%, #f5d67a 40%, #c49020 100%);
       border-radius: 5px;
       border: 1px solid rgba(0,0,0,0.15);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+    .gp-card-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: rgba(0,0,0,0.55);
     }
     .gp-card-network {
       font-family: 'Syne', sans-serif;
@@ -674,42 +647,15 @@
       letter-spacing: 0.1em;
       color: rgba(0,0,0,0.4);
       text-transform: uppercase;
-    }
-    .gp-float {
-      position: fixed;
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 16px;
-      color: #60dd88;
-      pointer-events: none;
-      z-index: 9999;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-      animation: gp-float-up 1s ease forwards;
-    }
-    @keyframes gp-float-up {
-      0%   { opacity: 1; transform: translateY(0) scale(1); }
-      60%  { opacity: 1; transform: translateY(-40px) scale(1.1); }
-      100% { opacity: 0; transform: translateY(-70px) scale(0.9); }
+      margin-top: 2px;
     }
     .game-preview-card * {
       pointer-events: none;
     }
-    .game-preview-card:active {
-      transform: scale(0.98);
-      transition: transform 0.08s;
-    }
-      margin-top: 24px;
-      font-size: 13px;
-      color: var(--muted);
-      text-align: center;
-      max-width: 420px;
-      line-height: 1.6;
-    }
+
     @media (max-width: 768px) {
       .game-preview { padding: 60px 24px; }
-      .gp-digit { font-size: 26px; }
-      .gp-sep { font-size: 26px; }
-      .gp-prefix { font-size: 17px; }
+      .gp-balance { font-size: 36px; }
     }
   </style>
 </head>
@@ -751,24 +697,27 @@
 
   <!-- GAME PREVIEW -->
   <section class="game-preview" id="preview">
-    <div class="game-preview-label">Tap to earn</div>
-    <div class="game-preview-card" id="gp-card" onclick="gpCardClick(event)" style="cursor:pointer">
-      <div class="gp-top">
-        <div class="gp-eyebrow">TOTAL BALANCE</div>
-      </div>
-      <div style="position:relative;z-index:1">
-        <div class="gp-odo-wrap" id="gp-odo-wrap">
-          <!-- odometer digits injected by JS -->
+    <div class="game-preview-label">Passive Income, In Real Time</div>
+    <div class="gp-container" id="gp-container">
+      <div class="game-preview-card" id="gp-card">
+        <div class="gp-top">
+          <div class="gp-eyebrow">TOTAL BALANCE</div>
         </div>
-        <div class="gp-income" id="gp-income">+$0/hr passive</div>
-      </div>
-      <div class="gp-card-numbers">7429 &nbsp; 8831 &nbsp; 0042 &nbsp; 6817</div>
-      <div class="gp-card-bottom">
-        <div class="gp-card-chip"></div>
-        <div class="gp-card-network">SelfMade™</div>
+        <div class="gp-balance-row" id="gp-balance-row">
+          <div class="gp-balance" id="gp-balance">$10,000</div>
+        </div>
+        <div class="gp-card-details-row">
+          <div class="gp-card-left">
+            <div class="gp-card-chip"></div>
+            <div class="gp-card-numbers">7429 8831<br>0042 6817</div>
+          </div>
+          <div class="gp-card-right">
+            <div class="gp-card-name">SelfMade</div>
+            <div class="gp-card-network">◈ Player</div>
+          </div>
+        </div>
       </div>
     </div>
-    <p class="game-preview-sub">Earn passive income so your wealth grows as you sleep.</p>
   </section>
 
   <!-- LIVE TICKER -->
@@ -1018,308 +967,64 @@
     requestAnimationFrame(tick);
   })();
 
-  // ─── CARD CLICK ────────────────────────────────────────────────
-  var clickBonusHr = 0;  // outer scope — shared between card click and odometer IIFE
-  var gpClickCount = 0;
-  function gpCardClick(e){
-    clickBonusHr += 1000;
-    gpClickCount++;
-
-    // Floating +$1k/hr popup at click position
-    var popup = document.createElement('div');
-    popup.className = 'gp-float';
-    popup.textContent = '+$1k/hr';
-    popup.style.left = (e.clientX - 24) + 'px';
-    popup.style.top  = (e.clientY - 16) + 'px';
-    document.body.appendChild(popup);
-    setTimeout(function(){ popup.remove(); }, 1000);
-  }
-
-  // ─── ODOMETER PREVIEW ──────────────────────────────────────────
+  // ─── AMBIENT BALANCE COUNTER ───────────────────────────────────
+  // Not a game anymore — just the card sitting there with its balance
+  // climbing fast on its own, compounding a little quicker every second.
+  // When it hits $1,000,000 the number itself turns into a "PLAY NOW" link
+  // for a couple of seconds, then loops back to the start and climbs again.
   (function(){
-    var ROLL_MS   = 220;
-    var START_VAL = 0;
-    var CLICK_BONUS_HR = 1000;    // each card click adds $1,000/hr permanently
-    var sessionStart = null;
+    var START_BALANCE  = 10000;
+    var CAP             = 1000000;
+    var GROWTH_PER_SEC  = 0.076;   // ~60s+ to climb from $10k to the $1M cap
+    var PLAY_NOW_HOLD_MS = 2500;   // how long "PLAY NOW" stays up before looping
 
-    function currentIncomePs(){
-      return clickBonusHr / 3600;
-    }
-    var MAX_VAL   = 1000000;      // rolls into PLAY NOW at $1,000,000
-    var MIN_DIGITS = 1;           // no leading zeros — grows naturally with value
+    var balEl = document.getElementById('gp-balance');
+    if(!balEl) return;
 
-    var centVal = START_VAL * 100;
-    var wrap    = document.getElementById('gp-odo-wrap');
-    var incEl   = document.getElementById('gp-income');
-    if(!wrap) return;
+    var balance = START_BALANCE;
+    var capped  = false;
 
-    // ── format helpers ──
-    function fmtIncome(v){
-      var perHour = v * 3600;
-      function fmt(n){ return n % 1 === 0 ? n.toFixed(0) : n.toFixed(1).replace(/\.0$/, ''); }
-      if(perHour >= 1e6) return '+$' + fmt(perHour/1e6) + 'm/hr passive';
-      if(perHour >= 1e3) return '+$' + fmt(perHour/1e3) + 'k/hr passive';
-      return '+$' + Math.round(perHour) + '/hr passive';
+    function fmtMoney(n){
+      return '$' + Math.round(n).toLocaleString('en-US');
     }
 
-    // ── build digit columns ──
-    var PLAYNOW = ['P','L','A','Y','N','O','W'];
-
-    function makeCol(digit, letter){
-      var col = document.createElement('div');
-      col.className = 'gp-digit-col';
-      var strip = document.createElement('div');
-      strip.className = 'gp-digit-strip';
-      // digits 0-9 twice for roll-around
-      for(var i=0;i<20;i++){
-        var d = document.createElement('div');
-        d.className = 'gp-digit';
-        d.textContent = i % 10;
-        strip.appendChild(d);
-      }
-      // slot 20: the letter (reached when we roll past 9 the final time)
-      if(letter){
-        var l = document.createElement('div');
-        l.className = 'gp-digit';
-        l.textContent = letter;
-        strip.appendChild(l);
-      }
-      col.appendChild(strip);
-      col.dataset.cur = digit;
-      return {col:col, strip:strip};
-    }
-    function makeSep(ch){
-      var s = document.createElement('div');
-      s.className = 'gp-sep';
-      s.textContent = ch;
-      return s;
-    }
-    function makePrefix(){
-      var p = document.createElement('div');
-      p.className = 'gp-prefix';
-      p.textContent = '$';
-      return p;
+    function render(){
+      balEl.textContent = fmtMoney(balance);
     }
 
-    // Build display for a given dollar value
-    var cols = [];
-    function buildDisplay(dollarVal){
-      wrap.innerHTML = '';
-      cols = [];
-      var str = Math.floor(dollarVal).toString();
-      // pad to MIN_DIGITS so layout is always stable
-      while(str.length < MIN_DIGITS) str = '0' + str;
-      // add comma separators
-      var parts = [];
-      var n = str.length;
-      for(var i=0;i<n;i++){
-        parts.push(str[i]);
-        var rem = n - i - 1;
-        if(rem > 0 && rem % 3 === 0) parts.push(',');
-      }
-      // add cents
-      var cents = Math.floor((dollarVal * 100) % 100);
-      parts.push('.');
-      parts.push(Math.floor(cents/10).toString());
-      parts.push((cents%10).toString());
-
-      wrap.appendChild(makePrefix());
-      var colIdx = 0;
-      parts.forEach(function(ch){
-        if(ch === ',' || ch === '.'){
-          wrap.appendChild(makeSep(ch));
-        } else {
-          var letter = PLAYNOW[colIdx] || null;
-          var c = makeCol(parseInt(ch), letter);
-          colIdx++;
-          wrap.appendChild(c.col);
-          var pos = parseInt(ch);
-          c.strip.style.transition = 'none';
-          c.strip.style.transform = 'translateY(-' + (pos * 46) + 'px)';
-          cols.push(c);
-        }
-      });
+    function showPlayNow(){
+      capped = true;
+      balEl.innerHTML = '<a href="#app" class="gp-play-now" onclick="gtag(\'event\',\'click\',{event_category:\'cta\',event_label:\'ambient_play_now\'})">▶ PLAY NOW</a>';
+      setTimeout(function(){
+        balance = START_BALANCE;
+        capped = false;
+        render();
+      }, PLAY_NOW_HOLD_MS);
     }
 
-    buildDisplay(START_VAL);
-    var curIntDigits = MIN_DIGITS; // how many integer-part digit columns currently exist
-
-    function numCommas(digitCount){ return Math.max(0, Math.floor((digitCount - 1) / 3)); }
-
-    // Correctly-grouped integer-part chars for a value, e.g. 12345 -> ['1','2',',','3','4','5']
-    function intPartsFor(dollarVal){
-      var str = Math.floor(dollarVal).toString();
-      while(str.length < MIN_DIGITS) str = '0' + str;
-      var parts = [];
-      var n = str.length;
-      for(var i=0;i<n;i++){
-        parts.push(str[i]);
-        var rem = n - i - 1;
-        if(rem > 0 && rem % 3 === 0) parts.push(',');
-      }
-      return parts;
-    }
-
-    // The 21st strip slot (PLAY NOW letter) depends on a column's left-to-right
-    // position, which shifts whenever new leading digits are added in front of
-    // it. Keep it in sync rather than baking it in once at creation time.
-    function ensureLetterSlot(c, letter){
-      var kids = c.strip.children;
-      if(letter){
-        if(kids.length === 21){ kids[20].textContent = letter; }
-        else if(kids.length === 20){
-          var l = document.createElement('div');
-          l.className = 'gp-digit';
-          l.textContent = letter;
-          c.strip.appendChild(l);
-        }
-      } else if(kids.length === 21){
-        c.strip.removeChild(kids[20]);
-      }
-    }
-
-    // Smoothly add whatever new leading digit columns / commas are needed for
-    // dollarVal, instead of tearing down and rebuilding the whole display.
-    function growLeadingDigits(dollarVal){
-      var newIntDigits = Math.max(Math.floor(dollarVal).toString().length, MIN_DIGITS);
-      if(newIntDigits <= curIntDigits) return;
-
-      var intParts   = intPartsFor(dollarVal);
-      var oldPartsLen = curIntDigits + numCommas(curIntDigits);
-      var newPartsLen = newIntDigits + numCommas(newIntDigits);
-      var prefixParts = intParts.slice(0, newPartsLen - oldPartsLen);
-
-      var anchor = wrap.children[1] || null; // right after the $ prefix
-      var newCols = [];
-      var toAnimate = [];
-
-      prefixParts.forEach(function(ch){
-        var el;
-        if(ch === ','){
-          el = makeSep(',');
-        } else {
-          var digit = parseInt(ch, 10);
-          var c = makeCol(digit, null);
-          c.strip.style.transition = 'none';
-          c.strip.style.transform  = 'translateY(-' + (digit * 46) + 'px)';
-          newCols.push(c);
-          el = c.col;
-        }
-        wrap.insertBefore(el, anchor);
-        // Measure the element's natural width at full size before clamping it,
-        // so we can animate max-width from 0 up to that value (rather than
-        // scaleX, which doesn't affect layout — that let siblings snap
-        // sideways instantly instead of easing into place).
-        var natW = el.getBoundingClientRect().width;
-        el.style.overflow = 'hidden';
-        el.style.maxWidth = '0px';
-        el.style.opacity = '0';
-        toAnimate.push({el: el, w: natW});
-      });
-
-      // Commit the collapsed starting state on its own frame, then grow on
-      // the next one — a single synchronous reflow isn't reliably enough to
-      // make transitions fire in every browser.
-      requestAnimationFrame(function(){
-        toAnimate.forEach(function(item){ void item.el.offsetWidth; });
-        requestAnimationFrame(function(){
-          toAnimate.forEach(function(item){
-            item.el.style.transition = 'max-width ' + ROLL_MS + 'ms ease, opacity ' + ROLL_MS + 'ms ease';
-            item.el.style.maxWidth = item.w + 'px';
-            item.el.style.opacity = '1';
-          });
-        });
-      });
-
-      cols = newCols.concat(cols);
-      cols.forEach(function(c, i){ ensureLetterSlot(c, PLAYNOW[i] || null); });
-      curIntDigits = newIntDigits;
-    }
-
-    if(incEl) incEl.textContent = '+$0/hr passive';
-
-    // ── roll a column to a target digit ──
-    function rollCol(c, toDigit, h){
-      var cur = parseInt(c.col.dataset.cur);
-      if(cur === toDigit) return;
-      c.col.dataset.cur = toDigit;
-      var currentY = parseInt(c.strip.style.transform.replace('translateY(-','').replace('px)','')) || 0;
-      var targetY = toDigit * h;
-      if(toDigit < cur) targetY += 10 * h; // wrap around
-      c.strip.style.transition = 'transform ' + ROLL_MS + 'ms linear';
-      c.strip.style.transform = 'translateY(-' + targetY + 'px)';
-      if(c._rollTimeout) clearTimeout(c._rollTimeout);
-      c._rollTimeout = setTimeout(function(){
-        // snap to clean position
-        c.strip.style.transition = 'none';
-        c.strip.style.transform = 'translateY(-' + (toDigit * h) + 'px)';
-        c._rollTimeout = null;
-      }, ROLL_MS + 20);
-    }
-
-    // ── RAF loop ──
+    // No throttling — the Times New Roman + tabular-nums fix already keeps
+    // the digits from shaking, so rendering every frame just makes the
+    // climb read as smooth motion instead of visible little jumps.
     var lastT = null;
-    var rafId;
-
-    function raf(ts){
-      if(!lastT) {
-        lastT = ts;
-        rafId = requestAnimationFrame(raf);
-        return;
-      }
+    function tick(ts){
+      if(!lastT){ lastT = ts; requestAnimationFrame(tick); return; }
       var dt = (ts - lastT) / 1000;
       lastT = ts;
-
-      var incomePs = currentIncomePs();
-      centVal += incomePs * 100 * dt;
-
-      // When cap is hit — roll each column into its PLAY NOW letter
-      if(centVal > MAX_VAL * 100){
-        cancelAnimationFrame(rafId);
-        // Roll each digit column to its letter slot (slot 20), staggered
-        cols.forEach(function(c, i){
-          setTimeout(function(){
-            var h = c.col.querySelector('.gp-digit') ? c.col.querySelector('.gp-digit').offsetHeight || 52 : 52;
-            c.strip.style.transition = 'transform 320ms ease-in';
-            c.strip.style.transform = 'translateY(-' + (20 * h) + 'px)';
-          }, i * 80);
-        });
-        // After all columns have rolled, update income text and make it a link
-        var totalDelay = cols.length * 80 + 400;
-        setTimeout(function(){
-          if(incEl) incEl.innerHTML = '<a href="#app" style="color:#60dd88;text-decoration:none;font-weight:600">▶ Play Now — Free</a>';
-          // Hide separators and prefix so only the letters remain clean
-          wrap.querySelectorAll('.gp-sep, .gp-prefix').forEach(function(el){ el.style.opacity='0'; });
-          // Make the whole card clickable
-          wrap.style.cursor = 'pointer';
-          wrap.onclick = function(){ window.location.hash = '#app'; };
-        }, totalDelay);
-        return;
+      if(!capped){
+        balance *= (1 + GROWTH_PER_SEC * dt);
+        if(balance >= CAP){
+          balance = CAP;
+          render();
+          showPlayNow();
+        } else {
+          render();
+        }
       }
-
-      var dollarVal = centVal / 100;
-
-      // Smoothly add any new leading digit(s)/comma(s) instead of a full rebuild
-      growLeadingDigits(dollarVal);
-
-      // Update each digit column
-      var h = 46;
-      var str = Math.floor(dollarVal).toString();
-      while(str.length < MIN_DIGITS) str = '0' + str;
-      var cents = Math.floor((dollarVal * 100) % 100);
-      var allDigits = [];
-      for(var i=0;i<str.length;i++) allDigits.push(parseInt(str[i]));
-      allDigits.push(Math.floor(cents/10));
-      allDigits.push(cents%10);
-
-      for(var j=0;j<Math.min(cols.length, allDigits.length);j++){
-        rollCol(cols[j], allDigits[j], h);
-      }
-
-      if(incEl) incEl.textContent = fmtIncome(incomePs);
-      rafId = requestAnimationFrame(raf);
+      requestAnimationFrame(tick);
     }
-    rafId = requestAnimationFrame(raf);
+
+    render();
+    requestAnimationFrame(tick);
   })();
   </script>
 </body>
