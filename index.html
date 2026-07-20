@@ -721,7 +721,7 @@
       <h1>SelfMade:<br><span>Idle Billionaire</span><br>Tycoon</h1>
       <p class="hero-sub">Your private jet is on standby. Breakfast in Paris, a meeting in London, make it home to your private island for dinner. And tomorrow? Take your family for a tour of the Bahamas on your superyacht. Financial freedom isn't a fantasy — it's SelfMade. Download now.</p>
       <div class="hero-actions">
-        <a href="#app" class="btn-primary" onclick="gtag('event','play_now_click',{event_category:'cta',event_label:'hero_play_now'})">▶ Play Now — Free</a>
+        <a href="#app" class="btn-primary" onclick="gtag('event','play_now_click',{event_category:'cta',event_label:'hero_play_now'})">Coming Soon</a>
         <a href="#app" class="btn-outline" onclick="gtag('event','click',{event_category:'cta',event_label:'hero_learn_more'})">Learn More</a>
       </div>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;align-items:center">
@@ -852,25 +852,31 @@
       <p class="updated">Last updated: July 2026</p>
 
       <h3>Overview</h3>
-      <p>Cromdale Holdings Pty Ltd ("we", "us", "our") is an Australian company that develops and operates SelfMade: Idle Billionaire Tycoon ("the App"). This Privacy Policy applies to all users worldwide. By using the App, you agree to this policy.</p>
+      <p>Cromdale Holdings Pty Ltd ("we", "us", "our") is an Australian company that develops and operates SelfMade: Idle Billionaire Tycoon ("the App") and this website. This Privacy Policy applies to both the App and this website, for all users worldwide. By using the App or this website, you agree to this policy.</p>
 
-      <h3>Data We Collect</h3>
-      <p>SelfMade does not collect, transmit, or store any personal data. No account registration is required. No personal information is requested or stored by us at any time.</p>
+      <h3>Data We Collect Directly</h3>
+      <p>No account registration is required. We do not directly collect, request or store your name, email address or other contact details. All game progress is saved locally on your device only, using your device's built-in storage — we have no access to your save data.</p>
 
-      <h3>Game Data</h3>
-      <p>All game progress is saved locally on your device only using your device's built-in storage. We have no access to your save data.</p>
+      <h3>Advertising (In-App)</h3>
+      <p>The App uses Google AdMob to show optional rewarded video ads, for example to earn a bonus or speed up a purchase. AdMob can collect and use device identifiers — including your device's advertising identifier (IDFA on iOS) — and general device and app-usage data to select and measure ads. On iOS, the App requests permission through Apple's App Tracking Transparency framework before this identifier is used for personalised ads; if you decline, you will still see ads, just not personalised ones. Apple's SKAdNetwork is also used to measure ad performance without relying on your device identifier. You can review or withdraw tracking permission at any time in your device's Settings &gt; Privacy &amp; Security &gt; Tracking. An optional in-app purchase is available to remove ads entirely.</p>
 
-      <h3>Analytics</h3>
-      <p>SelfMade does not currently use any third-party analytics or tracking service. No data is sold or shared with any third party for any purpose.</p>
+      <h3>Analytics (Website)</h3>
+      <p>This website uses Google Analytics to understand how visitors use the site, such as which pages are viewed and which buttons are clicked. Google Analytics uses cookies and similar technology and may collect your IP address, device and browser information, and general location. This is used only to understand and improve the website and is never linked to your in-app identity or save data. The App itself does not use Google Analytics or any other analytics service.</p>
+
+      <h3>Third Parties</h3>
+      <p>The data described above is processed by Google (Google AdMob and Google Analytics) under Google's own privacy policy at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--gold)">policies.google.com/privacy</a>. We do not sell your data, and we do not share it with any third party beyond what is needed for Google to deliver ads and measure website traffic as described above.</p>
+
+      <h3>Your Choices</h3>
+      <p>You can decline the App Tracking Transparency prompt or change your choice at any time in your device's Tracking settings, purchase the ad-removal option in the App, or use your browser's cookie and privacy controls when visiting this website.</p>
 
       <h3>Age &amp; Parental Responsibility</h3>
       <p>SelfMade is intended for users aged 16 and over. If a minor uses the App, the parent or guardian is solely responsible for supervising that use and for ensuring compliance with applicable local laws. Cromdale Holdings Pty Ltd accepts no liability arising from use of the App by minors.</p>
 
       <h3>International Users</h3>
-      <p>SelfMade is available globally. As we collect no personal data, there is no cross-border transfer of personal information. Users are responsible for ensuring their use of the App complies with the laws of their own jurisdiction.</p>
+      <p>The App and this website are available globally. Where Google processes data as described above, it may be transferred to and processed in other countries, subject to Google's own safeguards. Users are responsible for ensuring their use of the App and website complies with the laws of their own jurisdiction.</p>
 
       <h3>Changes to This Policy</h3>
-      <p>We may update this policy from time to time. Any changes will be reflected with an updated date. Continued use of the App after any change constitutes acceptance of the updated policy.</p>
+      <p>We may update this policy from time to time. Any changes will be reflected with an updated date. Continued use of the App or this website after any change constitutes acceptance of the updated policy.</p>
 
       <h3>Contact</h3>
       <p>Questions about this privacy policy? Contact us at <a href="mailto:admin@cromdaleholdings.com" style="color:var(--gold)" onclick="gtag('event','click',{event_category:'contact',event_label:'privacy_email'})">admin@cromdaleholdings.com</a>.</p>
@@ -1007,23 +1013,24 @@
   })();
 
   // ─── AMBIENT BALANCE COUNTER ───────────────────────────────────
-  // Not a game anymore — just the card sitting there with its balance
-  // climbing fast on its own, compounding a little quicker every second.
-  // When it hits $1,000,000 the number itself turns into a "PLAY NOW" link
-  // for a couple of seconds, then loops back to the start and climbs again.
+  // Just the card sitting there with its balance climbing on its own,
+  // compounding a little quicker every second. No cap, no loop back to
+  // the start — it just keeps going up for as long as the page is open,
+  // switching to k/m/b/t suffixes once it outgrows a plain dollar figure
+  // so the card never has to fit an ever-lengthening wall of digits.
   (function(){
     var START_BALANCE  = 10000;
-    var CAP             = 1000000;
-    var GROWTH_PER_SEC  = 0.076;   // ~60s+ to climb from $10k to the $1M cap
-    var PLAY_NOW_HOLD_MS = 2500;   // how long "PLAY NOW" stays up before looping
+    var GROWTH_PER_SEC  = 0.076;
 
     var balEl = document.getElementById('gp-balance');
     if(!balEl) return;
 
     var balance = START_BALANCE;
-    var capped  = false;
 
     function fmtMoney(n){
+      if(n >= 1e12) return '$' + (n/1e12).toFixed(2) + 'T';
+      if(n >= 1e9) return '$' + (n/1e9).toFixed(2) + 'B';
+      if(n >= 1e6) return '$' + (n/1e6).toFixed(2) + 'M';
       return '$' + Math.round(n).toLocaleString('en-US');
     }
 
@@ -1044,16 +1051,6 @@
       balEl.innerHTML = renderChars(fmtMoney(balance));
     }
 
-    function showPlayNow(){
-      capped = true;
-      balEl.innerHTML = '<a href="#app" class="gp-play-now" onclick="gtag(\'event\',\'click\',{event_category:\'cta\',event_label:\'ambient_play_now\'})">▶ PLAY NOW</a>';
-      setTimeout(function(){
-        balance = START_BALANCE;
-        capped = false;
-        render();
-      }, PLAY_NOW_HOLD_MS);
-    }
-
     // No throttling — the Times New Roman + tabular-nums fix already keeps
     // the digits from shaking, so rendering every frame just makes the
     // climb read as smooth motion instead of visible little jumps.
@@ -1062,16 +1059,8 @@
       if(!lastT){ lastT = ts; requestAnimationFrame(tick); return; }
       var dt = (ts - lastT) / 1000;
       lastT = ts;
-      if(!capped){
-        balance *= (1 + GROWTH_PER_SEC * dt);
-        if(balance >= CAP){
-          balance = CAP;
-          render();
-          showPlayNow();
-        } else {
-          render();
-        }
-      }
+      balance *= (1 + GROWTH_PER_SEC * dt);
+      render();
       requestAnimationFrame(tick);
     }
 
