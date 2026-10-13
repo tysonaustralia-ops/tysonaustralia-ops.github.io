@@ -1120,15 +1120,16 @@
   })();
 
   // ─── AMBIENT BALANCE COUNTER ───────────────────────────────────
-  // Just the card sitting there with its balance climbing on its own,
-  // compounding a little quicker every second. Capped at $1M (Ty's ask)
-  // — once it reaches that, it loops back to the starting balance and
-  // climbs again, rather than running away into the k/m/b/t suffixes
-  // forever for as long as the page happens to stay open.
+  // The card sits almost still. Every 10-30 seconds (random) the balance
+  // ticks up by a random $1-$999 — no continuous animation. Capped at $1M;
+  // if it ever reaches that, it loops back to the starting balance.
   (function(){
     var START_BALANCE  = 10000;
     var CAP_BALANCE     = 1000000;
-    var GROWTH_PER_SEC  = 0.076;
+    var MIN_STEP        = 1;
+    var MAX_STEP        = 999;
+    var MIN_WAIT_MS     = 10000;
+    var MAX_WAIT_MS     = 30000;
 
     var balEl = document.getElementById('gp-balance');
     if(!balEl) return;
@@ -1159,22 +1160,17 @@
       balEl.innerHTML = renderChars(fmtMoney(balance));
     }
 
-    // No throttling — the Times New Roman + tabular-nums fix already keeps
-    // the digits from shaking, so rendering every frame just makes the
-    // climb read as smooth motion instead of visible little jumps.
-    var lastT = null;
-    function tick(ts){
-      if(!lastT){ lastT = ts; requestAnimationFrame(tick); return; }
-      var dt = (ts - lastT) / 1000;
-      lastT = ts;
-      balance *= (1 + GROWTH_PER_SEC * dt);
+    function randInt(lo, hi){ return lo + Math.floor(Math.random() * (hi - lo + 1)); }
+
+    function step(){
+      balance += randInt(MIN_STEP, MAX_STEP);
       if(balance >= CAP_BALANCE) balance = START_BALANCE;
       render();
-      requestAnimationFrame(tick);
+      setTimeout(step, randInt(MIN_WAIT_MS, MAX_WAIT_MS));
     }
 
     render();
-    requestAnimationFrame(tick);
+    setTimeout(step, randInt(MIN_WAIT_MS, MAX_WAIT_MS));
   })();
   </script>
 </body>
