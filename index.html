@@ -303,13 +303,28 @@
       padding: 56px 48px;
       border-right: 1px solid var(--border);
     }
-    .feature:last-child { border-right: none; }
+    .feature:nth-child(3n) { border-right: none; }
+    .feature:nth-child(-n+6) { border-bottom: 1px solid var(--border); }
     .feature-icon { font-size: 28px; margin-bottom: 16px; }
     .feature h3 {
       font-family: 'Syne', sans-serif; font-weight: 700;
       font-size: 16px; margin-bottom: 10px; color: var(--gold-lt);
     }
     .feature p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    @media (max-width: 1100px) and (min-width: 769px) {
+      .features { grid-template-columns: repeat(2, 1fr); }
+      .feature { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+      .feature:nth-child(2n) { border-right: none; }
+      .feature:last-child { border-bottom: none; }
+    }
+
+    /* WHY PLAYERS LOVE IT */
+    .why { max-width: 1100px; margin: 0 auto; padding: 100px 48px; border-top: 1px solid var(--border); }
+    .why h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(28px, 3.5vw, 44px); line-height: 1.1; margin-bottom: 32px; }
+    .why-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 48px; }
+    .why-list li { position: relative; padding-left: 22px; color: var(--muted); font-size: 15px; line-height: 1.5; }
+    .why-list li::before { content: '◆'; position: absolute; left: 0; top: 1px; color: var(--gold); font-size: 10px; line-height: 2; }
 
     /* APP SECTION */
     .app-section {
@@ -556,7 +571,10 @@
       .hero-actions { flex-direction: column; }
       .btn-primary, .btn-outline { text-align: center; }
       .features { grid-template-columns: 1fr; }
+      .why { padding: 60px 24px; }
+      .why-list { grid-template-columns: 1fr; }
       .feature { border-right: none; border-bottom: 1px solid var(--border); padding: 40px 24px; }
+      .feature:last-child { border-bottom: none; }
       .app-section { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px; }
       .faq { padding: 60px 24px; }
       .privacy { padding: 60px 24px; }
@@ -615,178 +633,6 @@
       border-right: 1px solid rgba(255,255,255,0.06);
     }
 
-    /* GAME PREVIEW */
-    .game-preview {
-      padding: 80px 48px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      border-bottom: 1px solid var(--border);
-      background: linear-gradient(to bottom, rgba(201,168,76,0.03) 0%, transparent 100%);
-    }
-    .gp-container {
-      width: 100%;
-      max-width: 420px;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      position: relative;
-    }
-    /* Credit card — standard 85.6:54 aspect ratio, styled to match the real
-       in-app card face (Total Balance / income-per-hr / chip+number / name+brand) */
-    .game-preview-card {
-      background:
-        linear-gradient(135deg,
-          #b8862a 0%,
-          #f0cc72 25%,
-          #c9a84c 45%,
-          #fde68a 55%,
-          #b8862a 75%,
-          #e8b84b 100%
-        );
-      border-radius: 16px;
-      padding: 22px 26px 20px;
-      width: 100%;
-      aspect-ratio: 85.6 / 54;
-      box-shadow:
-        0 8px 32px rgba(0,0,0,0.6),
-        0 2px 8px rgba(0,0,0,0.4),
-        inset 0 1px 0 rgba(255,255,255,0.25),
-        inset 0 -1px 0 rgba(0,0,0,0.2);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    /* Holographic shimmer overlay */
-    .game-preview-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        115deg,
-        transparent 0%,
-        rgba(255,255,255,0.08) 30%,
-        rgba(255,255,255,0.18) 50%,
-        rgba(255,255,255,0.08) 70%,
-        transparent 100%
-      );
-      pointer-events: none;
-    }
-    /* Embossed circle pattern (card background detail) */
-    .game-preview-card::after {
-      content: '';
-      position: absolute;
-      right: -60px; top: -60px;
-      width: 220px; height: 220px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .gp-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      position: relative;
-      z-index: 1;
-    }
-    .gp-eyebrow {
-      font-family: 'Syne', sans-serif;
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      color: rgba(0,0,0,0.45);
-      text-transform: uppercase;
-    }
-    .gp-balance-row {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-    }
-    .gp-balance {
-      font-family: 'Times New Roman', Times, serif;
-      font-weight: 700;
-      font-size: clamp(39px, 9vw, 51px);
-      color: rgba(0,0,0,0.8);
-      letter-spacing: 0;
-      transition: color 0.25s ease;
-      font-variant-numeric: tabular-nums;
-      font-feature-settings: 'tnum' 1;
-    }
-    .gp-balance.gp-balance-down { color: #7a1f1f; }
-    .gp-balance a.gp-play-now {
-      color: inherit;
-      text-decoration: none;
-    }
-    /* Relying on the font's own tabular-figure metrics (Times New Roman,
-       tabular-nums) still let the number shudder — that only works if the
-       exact font is actually installed, and falls back silently to
-       whatever serif IS available otherwise, which may not have matched
-       digit widths. This is the actual fix: every character of the
-       formatted balance is put in its own fixed-width box via JS, so a
-       digit swapping in place can never change layout width — a CSS
-       box-model guarantee, not something dependent on font support. */
-    .gp-digit-ch { display: inline-block; width: 0.64em; text-align: center; }
-    .gp-punct-ch { display: inline-block; text-align: center; }
-    .gp-card-details-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      position: relative;
-      z-index: 1;
-    }
-    .gp-card-left { display: flex; flex-direction: column; gap: 8px; }
-    .gp-card-right { text-align: right; }
-    .gp-card-numbers {
-      font-family: 'Syne', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      color: rgba(0,0,0,0.55);
-      line-height: 1.4;
-      /* Embossed/indented look, like a real card's printed number, rather
-         than flat printed text sitting on top of the card face — dark
-         shadow above/left (reads as pressed into the gold surface) with a
-         soft light highlight below/right catching the edge of the
-         indent, calibrated for this card's light gold face. */
-      text-shadow:
-        0 1px 0 rgba(255,255,255,0.5),
-        0 -1px 0 rgba(0,0,0,0.35),
-        1px 0 0 rgba(255,255,255,0.35),
-        -1px 0 0 rgba(0,0,0,0.2);
-    }
-    .gp-card-chip {
-      width: 32px;
-      height: 25px;
-      background: linear-gradient(135deg, #d4a832 0%, #f5d67a 40%, #c49020 100%);
-      border-radius: 5px;
-      border: 1px solid rgba(0,0,0,0.15);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
-    }
-    .gp-card-name {
-      font-family: 'Syne', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      color: rgba(0,0,0,0.55);
-    }
-    .gp-card-network {
-      font-family: 'Syne', sans-serif;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      color: rgba(0,0,0,0.4);
-      text-transform: uppercase;
-      margin-top: 2px;
-    }
-    .game-preview-card * {
-      pointer-events: none;
-    }
-
-    @media (max-width: 768px) {
-      .game-preview { padding: 60px 24px; }
-      .gp-balance { font-size: 36px; }
-    }
   </style>
 </head>
 <body>
@@ -810,8 +656,8 @@
     <div class="hero-content">
       <div class="hero-eyebrow">Cromdale Holdings Pty Ltd</div>
       <h1>Idle Business<br>Tycoon: <span>SelfMade™</span></h1>
-      <p class="hero-tagline">From your first dollar to a global empire — you're SelfMade.</p>
-      <p class="hero-sub">Your private jet is on standby. Breakfast in Paris, a meeting in London, make it home to your private island for dinner. And tomorrow? Take your family for a tour of the Bahamas on your super-yacht. Passive income isn't a fantasy — it's SelfMade.</p>
+      <p class="hero-tagline">From small beginnings to a global empire. You're SelfMade.</p>
+      <p class="hero-sub">Your jet is on standby. Breakfast in Paris, a day in London, home to your private island for dinner.</p>
       <div class="hero-actions">
         <a href="#app" class="btn-primary" onclick="gtag('event','play_now_click',{event_category:'cta',event_label:'hero_play_now'})">Coming Soon</a>
         <a href="#app" class="btn-outline" onclick="gtag('event','click',{event_category:'cta',event_label:'hero_learn_more'})">Learn More</a>
@@ -827,30 +673,6 @@
     </div>
   </section>
 
-  <!-- GAME PREVIEW -->
-  <section class="game-preview" id="preview">
-    <div class="gp-container" id="gp-container">
-      <div class="game-preview-card" id="gp-card">
-        <div class="gp-top">
-          <div class="gp-eyebrow">TOTAL BALANCE</div>
-        </div>
-        <div class="gp-balance-row" id="gp-balance-row">
-          <div class="gp-balance" id="gp-balance">$10,000</div>
-        </div>
-        <div class="gp-card-details-row">
-          <div class="gp-card-left">
-            <div class="gp-card-chip"></div>
-            <div class="gp-card-numbers">7429 8831<br>0042 6817</div>
-          </div>
-          <div class="gp-card-right">
-            <div class="gp-card-name">SelfMade</div>
-            <div class="gp-card-network">◈ Player</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- LIVE TICKER -->
   <div class="site-ticker-wrap">
     <div class="site-ticker-live">LIVE</div>
@@ -861,20 +683,50 @@
 
   <!-- FEATURES -->
   <div class="features">
+    <div class="feature" onclick="gtag('event','click',{event_category:'feature',event_label:'free_to_play'})">
+      <div class="feature-icon">🎁</div>
+      <h3>Free to Play, Your Way</h3>
+      <p>Everything can be enjoyed for free, and rewarded videos are always optional: watch one only when you want a bonus, like an income boost or an extra reward. No ad is ever forced on you. Your fortune keeps growing, even while you’re offline.</p>
+    </div>
+    <div class="feature" onclick="gtag('event','click',{event_category:'feature',event_label:'dream_home'})">
+      <div class="feature-icon">🏡</div>
+      <h3>Find Your Dream Home</h3>
+      <p>Browse homes and apartments in cities around the world, each with photography of the interior and exterior and an in-depth description. Choose your dream home, move in and make it your base, with household staff to look after it while you travel.</p>
+    </div>
+    <div class="feature" onclick="gtag('event','click',{event_category:'feature',event_label:'live_in_luxury'})">
+      <div class="feature-icon">✈️</div>
+      <h3>Live in Luxury</h3>
+      <p>Dock your superyacht at your own private island. Fly anywhere you desire on your private jet. Stay in your own skyscraper penthouse, or retreat to your country estate. Every home, jet, car and yacht is detailed inside and out, with beautiful photography and in-depth descriptions.</p>
+    </div>
+    <div class="feature" onclick="gtag('event','click',{event_category:'feature',event_label:'family_office'})">
+      <div class="feature-icon">🗂️</div>
+      <h3>Let Your Family Office Run the Empire</h3>
+      <p>Open your own Family Office and let your staff do the work. Appoint a CEO and CFO, hire household staff, and let your Chief of Staff keep everything in order while you relax.</p>
+    </div>
     <div class="feature" onclick="gtag('event','click',{event_category:'feature',event_label:'build'})">
       <div class="feature-icon">🏢</div>
-      <h3>Build</h3>
-      <p>Start a business and grow it into a global empire. Make smart decisions, invest wisely, take risks. Scale your tycoon empire across dozens of business sectors, from online shopping to hotels, banks, beauty, sport and energy.</p>
+      <h3>Build Your Empire</h3>
+      <p>It all starts small. Begin with a lemonade stand and grow into dozens of business sectors, from online shopping and hotels to banks, beauty, energy, shipping and sport. Buy, upgrade and boost your businesses, run a Mining Corporation, play the stock market, and trade crypto and commodities. Watch your passive income compound while you sleep.</p>
     </div>
-    <div class="feature" onclick="gtag('event','click',{event_category:'feature',event_label:'invest'})">
+    <div class="feature" onclick="gtag('event','click',{event_category:'feature',event_label:'sports_team'})">
+      <div class="feature-icon">🏆</div>
+      <h3>Own Your Own Sports Team</h3>
+      <p>Buy a sports franchise and cheer on your own team as they play live. Follow every match as it unfolds, climb the standings and win trophies.</p>
+    </div>
+    <div class="feature" onclick="gtag('event','click',{event_category:'feature',event_label:'give_back'})">
+      <div class="feature-icon">🤝</div>
+      <h3>Give Back</h3>
+      <p>Use your fortune to help people less fortunate than yourself by supporting charities and philanthropic causes around the world.</p>
+    </div>
+    <div class="feature" onclick="gtag('event','click',{event_category:'feature',event_label:'art_jewellery'})">
+      <div class="feature-icon">💎</div>
+      <h3>Collect Art and Jewellery</h3>
+      <p>Buy fine art, jewellery and fashion, and build a collection worthy of a billionaire.</p>
+    </div>
+    <div class="feature" onclick="gtag('event','click',{event_category:'feature',event_label:'rich_list'})">
       <div class="feature-icon">📈</div>
-      <h3>Invest</h3>
-      <p>Play the stock market, buy real estate, trade crypto and commodities. Build passive income streams that compound while you're asleep. Watch your net worth climb as dividends, rental income and market gains stack up.</p>
-    </div>
-    <div class="feature" onclick="gtag('event','click',{event_category:'feature',event_label:'lifestyle'})">
-      <div class="feature-icon">✈️</div>
-      <h3>Lifestyle</h3>
-      <p>Property, cars, yachts, jets, jewellery, fashion, islands and more are listed with stunning photography and detailed descriptions. Find your dream house, personalise it, then live in luxury. Feeling adventurous? Take a cruise, race a supercar, push the boundaries of space.</p>
+      <h3>Climb the Rich List</h3>
+      <p>Earn achievements, grow your net worth and make your mark on the global Rich List.</p>
     </div>
   </div>
 
@@ -920,10 +772,10 @@
   <section class="app-section" id="app">
     <div>
       <div class="app-label">Idle Business Tycoon: SelfMade™</div>
-      <h2>Your Fantasy Life,<br>No Limits</h2>
-      <p>Start with nothing. Build a business. Generate a wave of passive income. Reinvest the profits into income streams that compound while you're not even watching.</p>
-      <p>Enjoy your financial freedom. You will need a business jet. And a yacht for privacy. Buy real estate across the world. Find your dream home.</p>
-      <p>Idle Business Tycoon: SelfMade is a free idle tycoon game — an incremental business simulator that puts you in control of a fantasy financial empire that keeps growing even while you're offline. Trade stocks, commodities and cryptocurrency, build a real estate portfolio, collect luxury lifestyle assets, and stake your claim on the Rich List.</p>
+      <h2>Have you got what it takes to be number one on the Rich List?</h2>
+      <p>Sit back, relax and enjoy living in luxury. Unwind on your private jet, drift across the sea on your superyacht, or spend time in your homes and apartments around the world.</p>
+      <p>Idle Business Tycoon: SelfMade is a free-to-play idle tycoon game and an escape from everyday life. Disappear into a world where you answer to no one.</p>
+      <p>Be a businessman or businesswoman and see if you have what it takes to be number one on the Rich List.</p>
       <p style="color:var(--gold);font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;margin-top:8px;">Coming soon &nbsp;·&nbsp; iOS &amp; Android</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
         <a href="#" id="appstore-link" onclick="gtag('event','click',{event_category:'cta',event_label:'appstore'})" aria-label="Download on the App Store" style="opacity:0.5;pointer-events:none;cursor:default">
@@ -937,6 +789,23 @@
     <div>
       <img class="app-img" src="selfmade-hero.png" alt="SelfMade gameplay" onclick="gtag('event','screenshot_click',{event_category:'engagement',event_label:'app_screenshot'});document.getElementById('lightbox-img').src=this.src;document.getElementById('lightbox').classList.add('active')">
     </div>
+  </section>
+
+  <!-- WHY PLAYERS LOVE IT -->
+  <section class="why" id="why">
+    <h2>Why Players Love It</h2>
+    <ul class="why-list">
+        <li>Free to play, with optional rewarded videos for bonuses</li>
+        <li>A relaxing escape where you answer to no one</li>
+        <li>A game that appeals to women and men alike – live your ideal lifestyle</li>
+        <li>Idle income that keeps growing while you’re offline</li>
+        <li>Cars, yachts, jets, homes, art and jewellery in stunning detail</li>
+        <li>A Family Office with your own staff</li>
+        <li>Live sports matches featuring your own team</li>
+        <li>A live global stock market, with crypto and commodities</li>
+        <li>Make a difference to others with world-changing philanthropy</li>
+        <li>Watch an optional rewarded video for a boost, or skip them entirely</li>
+    </ul>
   </section>
 
   <!-- FAQ -->
@@ -1119,59 +988,6 @@
     requestAnimationFrame(tick);
   })();
 
-  // ─── AMBIENT BALANCE COUNTER ───────────────────────────────────
-  // The card sits almost still. Every 10-30 seconds (random) the balance
-  // ticks up by a random $1-$999 — no continuous animation. Capped at $1M;
-  // if it ever reaches that, it loops back to the starting balance.
-  (function(){
-    var START_BALANCE  = 10000;
-    var CAP_BALANCE     = 1000000;
-    var MIN_STEP        = 1;
-    var MAX_STEP        = 999;
-    var MIN_WAIT_MS     = 10000;
-    var MAX_WAIT_MS     = 30000;
-
-    var balEl = document.getElementById('gp-balance');
-    if(!balEl) return;
-
-    var balance = START_BALANCE;
-
-    function fmtMoney(n){
-      if(n >= 1e12) return '$' + (n/1e12).toFixed(2) + 'T';
-      if(n >= 1e9) return '$' + (n/1e9).toFixed(2) + 'B';
-      if(n >= 1e6) return '$' + (n/1e6).toFixed(2) + 'M';
-      return '$' + Math.round(n).toLocaleString('en-US');
-    }
-
-    // Each character gets its own fixed-width box (see .gp-digit-ch /
-    // .gp-punct-ch) so swapping "1" for "8" at a given position never
-    // nudges the rest of the number sideways.
-    function renderChars(str){
-      var out = '';
-      for(var i = 0; i < str.length; i++){
-        var ch = str[i];
-        var cls = (ch >= '0' && ch <= '9') ? 'gp-digit-ch' : 'gp-punct-ch';
-        out += '<span class="' + cls + '">' + ch + '</span>';
-      }
-      return out;
-    }
-
-    function render(){
-      balEl.innerHTML = renderChars(fmtMoney(balance));
-    }
-
-    function randInt(lo, hi){ return lo + Math.floor(Math.random() * (hi - lo + 1)); }
-
-    function step(){
-      balance += randInt(MIN_STEP, MAX_STEP);
-      if(balance >= CAP_BALANCE) balance = START_BALANCE;
-      render();
-      setTimeout(step, randInt(MIN_WAIT_MS, MAX_WAIT_MS));
-    }
-
-    render();
-    setTimeout(step, randInt(MIN_WAIT_MS, MAX_WAIT_MS));
-  })();
   </script>
 </body>
 </html>
