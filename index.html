@@ -350,9 +350,8 @@
     .app-section {
       max-width: 1100px; margin: 0 auto;
       padding: 100px 48px;
-      display: grid; grid-template-columns: 1fr;
+      display: grid; grid-template-columns: 1fr 1fr;
       gap: 80px; align-items: center;
-      max-width: 760px;
     }
     .app-label {
       font-family: 'Syne', sans-serif; font-size: 11px;
@@ -694,7 +693,6 @@
 
   <nav>
     <div class="nav-logo" onclick="gtag('event','click',{event_category:'nav',event_label:'logo'})">
-      <img src="logo-icon.png" alt="SelfMade">
       <span>Cromdale Holdings</span>
     </div>
     <div class="nav-links">
@@ -836,6 +834,9 @@
           <svg height="40" viewBox="0 0 135 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="135" height="40" rx="6" fill="#111"/><rect width="135" height="40" rx="6" fill="white" fill-opacity="0.08"/><rect x="0.5" y="0.5" width="134" height="39" rx="5.5" stroke="white" stroke-opacity="0.25"/><text x="38" y="15" fill="white" font-family="system-ui,-apple-system,sans-serif" font-size="7" opacity="0.7">GET IT ON</text><text x="38" y="30" fill="white" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="600">Google Play</text><text x="14" y="29" fill="white" font-family="system-ui,-apple-system,sans-serif" font-size="22">▶</text></svg>
         </a>
       </div>
+    </div>
+      <div>
+      <img class="app-img" src="sunset-sailboat.jpg" alt="A couple on a sunset beach with a sailboat" loading="lazy" onclick="gtag('event','screenshot_click',{event_category:'engagement',event_label:'app_image'});document.getElementById('lightbox-img').src=this.src;document.getElementById('lightbox').classList.add('active')">
     </div>
   </section>
 
