@@ -197,7 +197,7 @@
       border-bottom: 1px solid var(--border);
     }
     .nav-logo { display: flex; align-items: center; gap: 10px; }
-    .nav-logo img { width: 32px; height: 32px; object-fit: contain; }
+    .nav-logo img { width: 40px; height: 40px; object-fit: contain; }
     .nav-logo span {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
@@ -350,8 +350,9 @@
     .app-section {
       max-width: 1100px; margin: 0 auto;
       padding: 100px 48px;
-      display: grid; grid-template-columns: 1fr 1fr;
+      display: grid; grid-template-columns: 1fr;
       gap: 80px; align-items: center;
+      max-width: 760px;
     }
     .app-label {
       font-family: 'Syne', sans-serif; font-size: 11px;
@@ -394,7 +395,7 @@
     .screens-grid {
       max-width: 1200px; margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 20px;
     }
     .screen-card img {
@@ -679,12 +680,21 @@
     }
     .trailer-frame video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
     @media (max-width: 700px) { .trailer { padding: 56px 20px 60px; } }
+
+    /* APP LOGO */
+    .hero-logo { display: block; width: 88px; height: 88px; border-radius: 20px; margin-bottom: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .app-logo { display: block; width: 140px; height: 140px; border-radius: 31px; margin: 0 0 24px; box-shadow: 0 16px 40px rgba(0,0,0,0.55); }
+    .footer-logo { display: block; width: 36px; height: 36px; border-radius: 8px; margin: 0 auto 14px; }
+    @media (max-width: 700px) { .hero-logo { width: 72px; height: 72px; border-radius: 16px; } .app-logo { width: 110px; height: 110px; border-radius: 25px; } }
   </style>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
 </head>
 <body>
 
   <nav>
     <div class="nav-logo" onclick="gtag('event','click',{event_category:'nav',event_label:'logo'})">
+      <img src="logo-icon.png" alt="SelfMade">
       <span>Cromdale Holdings</span>
     </div>
     <div class="nav-links">
@@ -700,6 +710,7 @@
     <img class="hero-img" src="hero-bg.png" alt="SelfMade Empire Builder">
     <div class="hero-overlay"></div>
     <div class="hero-content">
+      <img class="hero-logo" src="app-logo.png" alt="SelfMade app icon">
       <div class="hero-eyebrow">Cromdale Holdings Pty Ltd</div>
       <h1>Idle Business<br>Tycoon: <span>SelfMade™</span></h1>
       <p class="hero-tagline">From small beginnings to a global empire. You're SelfMade.</p>
@@ -798,29 +809,11 @@
       <div class="screen-card" onclick="gtag('event','screenshot_click',{event_category:'engagement',event_label:'gallery_home'});document.getElementById('lightbox-img').src=this.querySelector('img').src;document.getElementById('lightbox').classList.add('active')">
         <img src="screenshots/home-overview.jpg" alt="SelfMade home overview screenshot" loading="lazy">
       </div>
-      <div class="screen-card" onclick="gtag('event','screenshot_click',{event_category:'engagement',event_label:'gallery_lifestyle'});document.getElementById('lightbox-img').src=this.querySelector('img').src;document.getElementById('lightbox').classList.add('active')">
-        <img src="screenshots/lifestyle.jpg" alt="SelfMade lifestyle assets screenshot" loading="lazy">
-      </div>
       <div class="screen-card" onclick="gtag('event','screenshot_click',{event_category:'engagement',event_label:'gallery_hypercar'});document.getElementById('lightbox-img').src=this.querySelector('img').src;document.getElementById('lightbox').classList.add('active')">
         <img src="screenshots/hypercar.jpg" alt="SelfMade hypercar screenshot" loading="lazy">
       </div>
       <div class="screen-card" onclick="gtag('event','screenshot_click',{event_category:'engagement',event_label:'gallery_gigayacht'});document.getElementById('lightbox-img').src=this.querySelector('img').src;document.getElementById('lightbox').classList.add('active')">
         <img src="screenshots/gigayacht.jpg" alt="SelfMade superyacht screenshot" loading="lazy">
-      </div>
-      <div class="screen-card" onclick="gtag('event','screenshot_click',{event_category:'engagement',event_label:'gallery_jet'});document.getElementById('lightbox-img').src=this.querySelector('img').src;document.getElementById('lightbox').classList.add('active')">
-        <img src="screenshots/jet-affordable.jpg" alt="SelfMade private jet screenshot" loading="lazy">
-      </div>
-      <div class="screen-card" onclick="gtag('event','screenshot_click',{event_category:'engagement',event_label:'gallery_real_estate'});document.getElementById('lightbox-img').src=this.querySelector('img').src;document.getElementById('lightbox').classList.add('active')">
-        <img src="screenshots/real-estate.jpg" alt="SelfMade real estate screenshot" loading="lazy">
-      </div>
-      <div class="screen-card" onclick="gtag('event','screenshot_click',{event_category:'engagement',event_label:'gallery_jewellery'});document.getElementById('lightbox-img').src=this.querySelector('img').src;document.getElementById('lightbox').classList.add('active')">
-        <img src="screenshots/jewellery.jpg" alt="SelfMade jewellery screenshot" loading="lazy">
-      </div>
-      <div class="screen-card" onclick="gtag('event','screenshot_click',{event_category:'engagement',event_label:'gallery_business_register'});document.getElementById('lightbox-img').src=this.querySelector('img').src;document.getElementById('lightbox').classList.add('active')">
-        <img src="screenshots/business-register.jpg" alt="SelfMade business register screenshot" loading="lazy">
-      </div>
-      <div class="screen-card" onclick="gtag('event','screenshot_click',{event_category:'engagement',event_label:'gallery_welcome_back'});document.getElementById('lightbox-img').src=this.querySelector('img').src;document.getElementById('lightbox').classList.add('active')">
-        <img src="screenshots/welcome-back.jpg" alt="SelfMade welcome back screenshot" loading="lazy">
       </div>
     </div>
   </section>
@@ -828,6 +821,7 @@
   <!-- APP DETAIL -->
   <section class="app-section" id="app">
     <div>
+      <img class="app-logo" src="app-logo.png" alt="SelfMade app icon" loading="lazy">
       <div class="app-label">Idle Business Tycoon: SelfMade™</div>
       <h2>Have you got what it takes to be number one on the Rich List?</h2>
       <p>Sit back, relax and enjoy living in luxury. Unwind on your private jet, drift across the sea on your superyacht, or spend time in your homes and apartments around the world.</p>
@@ -842,9 +836,6 @@
           <svg height="40" viewBox="0 0 135 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="135" height="40" rx="6" fill="#111"/><rect width="135" height="40" rx="6" fill="white" fill-opacity="0.08"/><rect x="0.5" y="0.5" width="134" height="39" rx="5.5" stroke="white" stroke-opacity="0.25"/><text x="38" y="15" fill="white" font-family="system-ui,-apple-system,sans-serif" font-size="7" opacity="0.7">GET IT ON</text><text x="38" y="30" fill="white" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="600">Google Play</text><text x="14" y="29" fill="white" font-family="system-ui,-apple-system,sans-serif" font-size="22">▶</text></svg>
         </a>
       </div>
-    </div>
-    <div>
-      <img class="app-img" src="selfmade-hero.png" alt="SelfMade gameplay" onclick="gtag('event','screenshot_click',{event_category:'engagement',event_label:'app_screenshot'});document.getElementById('lightbox-img').src=this.src;document.getElementById('lightbox').classList.add('active')">
     </div>
   </section>
 
@@ -928,6 +919,7 @@
 
   <!-- FOOTER -->
   <footer>
+    <img class="footer-logo" src="logo-icon.png" alt="SelfMade" loading="lazy">
     <p>&copy; <span id="footer-year">2026</span> Cromdale Holdings Pty Ltd. All rights reserved.</p>
     <p><a href="/privacy/" onclick="gtag('event','click',{event_category:'footer',event_label:'privacy_policy'})">Privacy Policy</a> &nbsp;·&nbsp; <a href="/terms/" onclick="gtag('event','click',{event_category:'footer',event_label:'terms'})">Terms of Use</a> &nbsp;·&nbsp; <a href="#" onclick="ccShowBanner();return false;">Cookie settings</a></p>
   </footer>
