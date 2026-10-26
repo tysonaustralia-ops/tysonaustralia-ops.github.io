@@ -653,6 +653,32 @@
       border-right: 1px solid rgba(255,255,255,0.06);
     }
 
+
+    /* TRAILER */
+    .trailer {
+      padding: 80px 48px 90px;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+    .trailer-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .trailer h2 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(28px, 3.5vw, 44px);
+      line-height: 1.1; margin-bottom: 40px;
+    }
+    .trailer-frame {
+      max-width: 960px; margin: 0 auto;
+      border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--border);
+      background: #000;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .trailer-frame video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
+    @media (max-width: 700px) { .trailer { padding: 56px 20px 60px; } }
   </style>
 </head>
 <body>
@@ -693,6 +719,17 @@
     </div>
   </section>
 
+  <!-- TRAILER -->
+  <section class="trailer" id="trailer">
+    <h2>Watch the Trailer</h2>
+    <div class="trailer-frame">
+      <video controls playsinline preload="metadata" poster="video/selfmade-trailer-poster.jpg" aria-label="SelfMade trailer" onplay="gtag('event','trailer_play',{event_category:'engagement',event_label:'trailer'})">
+        <source src="video/selfmade-trailer.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </section>
+
   <!-- LIVE TICKER -->
   <div class="site-ticker-wrap">
     <div class="site-ticker-live">LIVE</div>
@@ -703,47 +740,47 @@
 
   <!-- FEATURES -->
   <div class="features">
-    <div class="feature" style="--bg:url('free-to-play.jpg')" onclick="gtag('event','click',{event_category:'feature',event_label:'free_to_play'})">
+    <div class="feature" style="--bg:url('features/free-to-play.jpg')" onclick="gtag('event','click',{event_category:'feature',event_label:'free_to_play'})">
       <div class="feature-icon">🎁</div>
       <h3>Free to Play, Your Way</h3>
       <p>Everything can be enjoyed for free, and rewarded videos are always optional: watch one only when you want a bonus, like an income boost or an extra reward. No ad is ever forced on you. Your fortune keeps growing, even while you’re offline.</p>
     </div>
-    <div class="feature" style="--bg:url('dream-home.jpg')" onclick="gtag('event','click',{event_category:'feature',event_label:'dream_home'})">
+    <div class="feature" style="--bg:url('features/dream-home.jpg')" onclick="gtag('event','click',{event_category:'feature',event_label:'dream_home'})">
       <div class="feature-icon">🏡</div>
       <h3>Find Your Dream Home</h3>
       <p>Browse homes and apartments in cities around the world, each with photography of the interior and exterior and an in-depth description. Choose your dream home, move in and make it your base, with household staff to look after it while you travel.</p>
     </div>
-    <div class="feature" style="--bg:url('live-in-luxury.jpg')" onclick="gtag('event','click',{event_category:'feature',event_label:'live_in_luxury'})">
+    <div class="feature" style="--bg:url('features/live-in-luxury.jpg')" onclick="gtag('event','click',{event_category:'feature',event_label:'live_in_luxury'})">
       <div class="feature-icon">✈️</div>
       <h3>Live in Luxury</h3>
       <p>Dock your superyacht at your own private island. Fly anywhere you desire on your private jet. Stay in your own skyscraper penthouse, or retreat to your country estate. Every home, jet, car and yacht is detailed inside and out, with beautiful photography and in-depth descriptions.</p>
     </div>
-    <div class="feature" style="--bg:url('family-office.jpg')" onclick="gtag('event','click',{event_category:'feature',event_label:'family_office'})">
+    <div class="feature" style="--bg:url('features/family-office.jpg')" onclick="gtag('event','click',{event_category:'feature',event_label:'family_office'})">
       <div class="feature-icon">🗂️</div>
       <h3>Let Your Family Office Run the Empire</h3>
       <p>Open your own Family Office and let your staff do the work. Appoint a CEO and CFO, hire household staff, and let your Chief of Staff keep everything in order while you relax.</p>
     </div>
-    <div class="feature" style="--bg:url('build-empire.jpg')" onclick="gtag('event','click',{event_category:'feature',event_label:'build'})">
+    <div class="feature" style="--bg:url('features/build-empire.jpg')" onclick="gtag('event','click',{event_category:'feature',event_label:'build'})">
       <div class="feature-icon">🏢</div>
       <h3>Build Your Empire</h3>
       <p>It all starts small. Begin with a lemonade stand and grow into dozens of business sectors, from online shopping and hotels to banks, beauty, energy, shipping and sport. Buy, upgrade and boost your businesses, run a Mining Corporation, play the stock market, and trade crypto and commodities. Watch your passive income compound while you sleep.</p>
     </div>
-    <div class="feature" style="--bg:url('sports-team.jpg')" onclick="gtag('event','click',{event_category:'feature',event_label:'sports_team'})">
+    <div class="feature" style="--bg:url('features/sports-team.jpg')" onclick="gtag('event','click',{event_category:'feature',event_label:'sports_team'})">
       <div class="feature-icon">🏆</div>
       <h3>Own Your Own Sports Team</h3>
       <p>Buy a sports franchise and cheer on your own team as they play live. Follow every match as it unfolds, climb the standings and win trophies.</p>
     </div>
-    <div class="feature" style="--bg:url('give-back.jpg')" onclick="gtag('event','click',{event_category:'feature',event_label:'give_back'})">
+    <div class="feature" style="--bg:url('features/give-back.jpg')" onclick="gtag('event','click',{event_category:'feature',event_label:'give_back'})">
       <div class="feature-icon">🤝</div>
       <h3>Give Back</h3>
       <p>Use your fortune to help people less fortunate than yourself by supporting charities and philanthropic causes around the world.</p>
     </div>
-    <div class="feature" style="--bg:url('art-jewellery.jpg')" onclick="gtag('event','click',{event_category:'feature',event_label:'art_jewellery'})">
+    <div class="feature" style="--bg:url('features/art-jewellery.jpg')" onclick="gtag('event','click',{event_category:'feature',event_label:'art_jewellery'})">
       <div class="feature-icon">💎</div>
       <h3>Collect Art and Jewellery</h3>
       <p>Buy fine art, jewellery and fashion, and build a collection worthy of a billionaire.</p>
     </div>
-    <div class="feature" style="--bg:url('rich-list.jpg')" onclick="gtag('event','click',{event_category:'feature',event_label:'rich_list'})">
+    <div class="feature" style="--bg:url('features/rich-list.jpg')" onclick="gtag('event','click',{event_category:'feature',event_label:'rich_list'})">
       <div class="feature-icon">📈</div>
       <h3>Climb the Rich List</h3>
       <p>Earn achievements, grow your net worth and make your mark on the global Rich List.</p>
