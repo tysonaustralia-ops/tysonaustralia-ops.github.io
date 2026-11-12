@@ -679,6 +679,22 @@
     }
     .trailer-frame video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
     @media (max-width: 700px) { .trailer { padding: 56px 20px 60px; } }
+    .trailer-yt { max-width: min(1400px, 94vw); position: relative; cursor: pointer; aspect-ratio: 16 / 9; }
+    .trailer-yt img, .trailer-yt iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; display: block; }
+    .trailer-yt .trailer-play {
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+      width: clamp(64px, 9vw, 110px); height: clamp(64px, 9vw, 110px); border-radius: 50%;
+      background: rgba(8,8,8,0.6); border: 2px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .trailer-yt .trailer-play::after {
+      content: ''; margin-left: 8%;
+      border-style: solid; border-width: clamp(13px,1.8vw,22px) 0 clamp(13px,1.8vw,22px) clamp(22px,3vw,36px);
+      border-color: transparent transparent transparent var(--gold);
+    }
+    .trailer-yt:hover .trailer-play { transform: translate(-50%,-50%) scale(1.08); background: rgba(8,8,8,0.8); }
+    @media (max-width: 700px) { .trailer-yt { max-width: 100%; } }
 
     /* APP LOGO */
     .hero-logo { display: block; width: 88px; height: 88px; border-radius: 20px; margin-bottom: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
@@ -716,6 +732,7 @@
       <div class="hero-actions">
         <a href="#app" class="btn-primary" onclick="gtag('event','play_now_click',{event_category:'cta',event_label:'hero_play_now'})">Coming Soon</a>
         <a href="#app" class="btn-outline" onclick="gtag('event','click',{event_category:'cta',event_label:'hero_learn_more'})">Learn More</a>
+        <a href="#trailer" class="btn-outline" onclick="gtag('event','click',{event_category:'cta',event_label:'hero_watch_trailer'})">&#9654; Watch Trailer</a>
       </div>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;align-items:center">
         <a href="#app" class="store-btn" onclick="gtag('event','click',{event_category:'cta',event_label:'hero_appstore'})" aria-label="Download on the App Store">
@@ -727,6 +744,28 @@
       </div>
     </div>
   </section>
+
+  <!-- TRAILER -->
+  <section class="trailer" id="trailer">
+    <div class="trailer-label">Official Trailer</div>
+    <div class="trailer-frame trailer-yt" id="trailer-yt" role="button" tabindex="0" aria-label="Play the SelfMade trailer">
+      <img src="video/selfmade-youtube-thumbnail.jpg" alt="Idle Business Tycoon: SelfMade official trailer" loading="lazy">
+      <span class="trailer-play"></span>
+    </div>
+  </section>
+  <script>
+    (function(){
+      var f=document.getElementById('trailer-yt');
+      function play(){
+        if(f.dataset.playing) return; f.dataset.playing='1';
+        f.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/SgRg803RGA8?autoplay=1&rel=0" title="Idle Business Tycoon: SelfMade - Official Trailer" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+        f.style.cursor='default';
+        try{gtag('event','play',{event_category:'video',event_label:'trailer_embed'});}catch(e){}
+      }
+      f.addEventListener('click',play);
+      f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();play();}});
+    })();
+  </script>
 
   <!-- LIVE TICKER -->
   <div class="site-ticker-wrap">
