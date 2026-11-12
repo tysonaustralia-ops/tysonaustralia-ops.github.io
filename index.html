@@ -679,7 +679,7 @@
     }
     .trailer-frame video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
     @media (max-width: 700px) { .trailer { padding: 56px 20px 60px; } }
-    .trailer-yt { max-width: min(1400px, 94vw); position: relative; cursor: pointer; aspect-ratio: 16 / 9; }
+    .trailer-yt { max-width: min(1400px, 94vw); position: relative; aspect-ratio: 16 / 9; }
     .trailer-yt img, .trailer-yt iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; display: block; }
     .trailer-yt .trailer-play {
       position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
@@ -748,24 +748,10 @@
   <!-- TRAILER -->
   <section class="trailer" id="trailer">
     <div class="trailer-label">Official Trailer</div>
-    <div class="trailer-frame trailer-yt" id="trailer-yt" role="button" tabindex="0" aria-label="Play the SelfMade trailer">
-      <img src="video/selfmade-youtube-thumbnail.jpg" alt="Idle Business Tycoon: SelfMade official trailer" loading="lazy">
-      <span class="trailer-play"></span>
+    <div class="trailer-frame trailer-yt" id="trailer-yt">
+      <iframe src="https://www.youtube-nocookie.com/embed/SgRg803RGA8?rel=0" title="Idle Business Tycoon: SelfMade - Official Trailer" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>
     </div>
   </section>
-  <script>
-    (function(){
-      var f=document.getElementById('trailer-yt');
-      function play(){
-        if(f.dataset.playing) return; f.dataset.playing='1';
-        f.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/SgRg803RGA8?autoplay=1&rel=0" title="Idle Business Tycoon: SelfMade - Official Trailer" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
-        f.style.cursor='default';
-        try{gtag('event','play',{event_category:'video',event_label:'trailer_embed'});}catch(e){}
-      }
-      f.addEventListener('click',play);
-      f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();play();}});
-    })();
-  </script>
 
   <!-- LIVE TICKER -->
   <div class="site-ticker-wrap">
