@@ -71,58 +71,66 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "What is SelfMade?",
+        "name": "How do I earn money?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Idle Business Tycoon: SelfMade is a free idle tycoon game for iOS and Android. You start with nothing, build businesses, invest in the stock market, buy real estate, and collect luxury lifestyle assets as your passive income empire grows."
+          "text": "Buy businesses and upgrade them to raise their income. Income keeps building while the app is closed, and you collect it when you return."
         }
       },
       {
         "@type": "Question",
-        "name": "Is SelfMade free to play?",
+        "name": "What is the Rich List?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. SelfMade is completely free to download and play. The core game — building businesses, investing, and acquiring lifestyle assets — requires no purchases. Advertisements are offered to players in exchange for rewards."
+          "text": "The Rich List ranks the world's wealthiest people by net worth. Grow your net worth to climb it."
         }
       },
       {
         "@type": "Question",
-        "name": "Does SelfMade work offline?",
+        "name": "What is the Family Office?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. Your businesses and investments continue earning passive income even while you're not playing. Come back after hours or days and collect unfathomable amounts of income."
+          "text": "Your own private team, such as an estate manager, chauffeur and trainer, who send you notes about your properties and lifestyle."
         }
       },
       {
         "@type": "Question",
-        "name": "Is the money in SelfMade real?",
+        "name": "How do Sports Franchises work?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. Every dollar, investment, dividend and \"passive income\" figure in SelfMade is entirely fictional and has no real-world monetary value — SelfMade is designed purely for fun and fantasy."
+          "text": "Buy a franchise in one of several sports. Matches play out live, and your team's form affects the income it earns."
         }
       },
       {
         "@type": "Question",
-        "name": "Is SelfMade a cozy game?",
+        "name": "Do I have to watch ads?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Whether you're relaxing in a private jet cabin at cruising altitude or on the deck of your own yacht, SelfMade offers a low-pressure escape to a life without limits — while still giving players who want it real depth: a live stock market, a global rich list, and real strategic decisions along the way."
+          "text": "No. Ads are optional - only watch an ad if you want a reward."
         }
       },
       {
         "@type": "Question",
-        "name": "What kind of game is SelfMade?",
+        "name": "What is Chairman Mode?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "SelfMade is an idle clicker game and incremental simulator in the tycoon genre. It combines business management, stock market trading, real estate investment, and a luxury lifestyle simulator into a single mobile game."
+          "text": "An optional subscription that removes ads and gives you a Member Card and badge."
         }
       },
       {
         "@type": "Question",
-        "name": "What can I do in SelfMade?",
+        "name": "Do I need to spend money?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "You can build and upgrade businesses, trade stocks and crypto, invest in real estate, buy luxury assets including private jets, superyachts and private islands, and compete on a global rich list — all with a passive income system that grows even when you're not playing."
+          "text": "No. The core game needs no purchases. Optional purchases are available, but nothing is required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is my data handled?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Please see our Privacy Policy."
         }
       }
     ]
@@ -340,6 +348,10 @@
     }
 
     /* WHY PLAYERS LOVE IT */
+    .about { max-width: 1100px; margin: 0 auto; padding: 100px 48px; border-top: 1px solid var(--border); }
+    .about h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(28px, 3.5vw, 44px); line-height: 1.1; margin-bottom: 32px; }
+    .about p { color: var(--muted); font-size: 16px; line-height: 1.7; max-width: 760px; margin-bottom: 16px; }
+    .about p strong { color: var(--text); font-weight: 500; }
     .why { max-width: 1100px; margin: 0 auto; padding: 100px 48px; border-top: 1px solid var(--border); }
     .why h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(28px, 3.5vw, 44px); line-height: 1.1; margin-bottom: 32px; }
     .why-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 48px; }
@@ -592,6 +604,7 @@
       .btn-primary, .btn-outline { text-align: center; }
       .features { grid-template-columns: 1fr; }
       .why { padding: 60px 24px; }
+      .about { padding: 60px 24px; }
       .why-list { grid-template-columns: 1fr; }
       .feature { border-right: none; border-bottom: 1px solid var(--border); padding: 40px 24px; }
       .feature:last-child { border-bottom: none; }
@@ -713,6 +726,7 @@
     </div>
     <div class="nav-links">
       <a href="#app" onclick="gtag('event','click',{event_category:'nav',event_label:'the_game'})">The Game</a>
+      <a href="#about" onclick="gtag('event','click',{event_category:'nav',event_label:'about'})">About</a>
       <a href="/privacy/" onclick="gtag('event','click',{event_category:'nav',event_label:'privacy'})">Privacy</a>
       <a href="/terms/" onclick="gtag('event','click',{event_category:'nav',event_label:'terms'})">Terms</a>
       <a href="#contact" onclick="gtag('event','click',{event_category:'nav',event_label:'contact'})">Contact</a>
@@ -727,8 +741,8 @@
       <img class="hero-logo" src="app-logo.png" alt="SelfMade app icon">
       <div class="hero-eyebrow">Cromdale Holdings Pty Ltd</div>
       <h1>Idle Business<br>Tycoon: <span>SelfMade™</span></h1>
-      <p class="hero-tagline">From small beginnings to a global empire. You're SelfMade.</p>
-      <p class="hero-sub">Your jet is on standby. Breakfast in Paris, a day in London, home to your private island for dinner.</p>
+      <p class="hero-tagline">The most relaxing way to get rich.</p>
+      <p class="hero-sub">No pressure. No one to answer to. Your empire grows while you relax.</p>
       <div class="hero-actions">
         <a href="#app" class="btn-primary" onclick="gtag('event','play_now_click',{event_category:'cta',event_label:'hero_play_now'})">Coming Soon</a>
         <a href="#app" class="btn-outline" onclick="gtag('event','click',{event_category:'cta',event_label:'hero_learn_more'})">Learn More</a>
@@ -840,6 +854,7 @@
       <p>Idle Business Tycoon: SelfMade is a free-to-play idle tycoon game and an escape from everyday life. Disappear into a world where you answer to no one.</p>
       <p>Be a businessman or businesswoman and see if you have what it takes to be number one on the Rich List.</p>
       <p style="color:var(--gold);font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;margin-top:8px;">Coming soon &nbsp;·&nbsp; iOS &amp; Android</p>
+      <p style="margin-top:4px"><a href="#contact" style="color:var(--gold)">Follow us on TikTok, Instagram, YouTube and Facebook</a> to be notified at launch.</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
         <a href="#" id="appstore-link" onclick="gtag('event','click',{event_category:'cta',event_label:'appstore'})" aria-label="Download on the App Store" style="opacity:0.5;pointer-events:none;cursor:default">
           <svg height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="40" rx="6" fill="#111"/><rect width="120" height="40" rx="6" fill="white" fill-opacity="0.08"/><rect x="0.5" y="0.5" width="119" height="39" rx="5.5" stroke="white" stroke-opacity="0.25"/><text x="38" y="15" fill="white" font-family="system-ui,-apple-system,sans-serif" font-size="7" opacity="0.7">Download on the</text><text x="38" y="30" fill="white" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="600">App Store</text><text x="14" y="29" fill="white" font-family="system-ui,-apple-system,sans-serif" font-size="22"></text></svg>
@@ -871,41 +886,53 @@
     </ul>
   </section>
 
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <h2>About SelfMade</h2>
+    <p><strong>SelfMade is the idle game that lets you escape.</strong> Start with one small business and watch it grow into an empire, even while you are away. There is no one to answer to, just jets, yachts, mansions and a spot at the top of the Rich List.</p>
+    <p><strong>Idle Business Tycoon: SelfMade</strong> is a free idle tycoon game for iOS and Android.</p>
+    <p>It is an idle clicker and incremental simulator. Your businesses and investments keep earning while you are away, so you can play for a minute or an hour.</p>
+    <p>Build and upgrade businesses, trade stocks and crypto on a live in-game market, invest in real estate around the world, and collect private jets, superyachts, jewellery and fashion. Every business, property, car, yacht and jet comes with vivid photography and a detailed description, written like a private listing.</p>
+    <p>SelfMade is a relaxing, low-pressure escape, with real depth for players who want it: a live stock market, a global Rich List and strategic decisions along the way.</p>
+    <p><strong>Free to play.</strong> The core game needs no purchases. Ads are optional - only watch an ad if you want a reward.</p>
+    <p>All money in SelfMade is fictional and has no real-world value. It is designed purely for fun.</p>
+  </section>
+
   <!-- FAQ -->
   <section class="faq" id="faq">
     <h2>Frequently Asked Questions</h2>
     <div class="faq-list">
       <details class="faq-item">
-        <summary><h3>What is SelfMade?</h3></summary>
-        <p>Idle Business Tycoon: SelfMade is a free idle tycoon game for iOS and Android. You start with nothing, build businesses, invest in the stock market, buy real estate, and collect luxury lifestyle assets — private jets, superyachts, and private islands — as your passive income empire grows.</p>
+        <summary><h3>How do I earn money?</h3></summary>
+        <p>Buy businesses and upgrade them to raise their income. Income keeps building while the app is closed, and you collect it when you return.</p>
       </details>
       <details class="faq-item">
-        <summary><h3>Is SelfMade free to play?</h3></summary>
-        <p>Yes. SelfMade is completely free to download and play. The core game — building businesses, investing, and acquiring lifestyle assets — requires no purchases. Advertisements are offered to players in exchange for rewards.</p>
+        <summary><h3>What is the Rich List?</h3></summary>
+        <p>The Rich List ranks the world's wealthiest people by net worth. Grow your net worth to climb it.</p>
       </details>
       <details class="faq-item">
-        <summary><h3>Does SelfMade work offline?</h3></summary>
-        <p>Yes. Your businesses and investments continue earning passive income even while you're not playing. Come back after hours or days and collect unfathomable amounts of income.</p>
+        <summary><h3>What is the Family Office?</h3></summary>
+        <p>Your own private team, such as an estate manager, chauffeur and trainer, who send you notes about your properties and lifestyle.</p>
       </details>
       <details class="faq-item">
-        <summary><h3>Is the money in SelfMade real?</h3></summary>
-        <p>No. Every dollar, investment, dividend and "passive income" figure in SelfMade is entirely fictional and has no real-world monetary value — SelfMade is designed purely for fun and fantasy.</p>
+        <summary><h3>How do Sports Franchises work?</h3></summary>
+        <p>Buy a franchise in one of several sports. Matches play out live, and your team's form affects the income it earns.</p>
       </details>
       <details class="faq-item">
-        <summary><h3>Is SelfMade a cozy game?</h3></summary>
-        <p>Whether you're relaxing in a private jet cabin at cruising altitude or on the deck of your own yacht, SelfMade offers a low-pressure escape to a life without limits — while still giving players who want it real depth: a live stock market, a global rich list, and real strategic decisions along the way.</p>
+        <summary><h3>Do I have to watch ads?</h3></summary>
+        <p>No. Ads are optional - only watch an ad if you want a reward.</p>
       </details>
       <details class="faq-item">
-        <summary><h3>What kind of game is SelfMade?</h3></summary>
-        <p>SelfMade is an idle clicker game and incremental simulator in the tycoon genre. It combines business management, stock market trading, real estate investment, and a luxury lifestyle simulator into a single mobile game.</p>
+        <summary><h3>What is Chairman Mode?</h3></summary>
+        <p>An optional subscription that removes ads and gives you a Member Card and badge.</p>
       </details>
       <details class="faq-item">
-        <summary><h3>What can I do in SelfMade?</h3></summary>
-        <p>You can build and upgrade businesses across multiple industries, trade stocks and crypto on a live in-game market, invest in real estate properties around the world, buy luxury assets including private jets, superyachts, jewellery and fashion, and compete on a global rich list. The game features a full passive income system that grows even when you're not playing.</p>
+        <summary><h3>Do I need to spend money?</h3></summary>
+        <p>No. The core game needs no purchases. Optional purchases are available, but nothing is required.</p>
       </details>
       <details class="faq-item">
-        <summary><h3>Is SelfMade similar to other idle tycoon games?</h3></summary>
-        <p>SelfMade shares the satisfying idle business-building loop of the tycoon genre, but goes significantly deeper — with a real-time stock market, real estate portfolio system, crypto trading, luxury asset collecting, and a rich list to climb. Where most idle games stop at a number going up, every business, property, car, yacht and jet in SelfMade comes with vivid photography and an in-depth description written like a page out of a private listing — the kind of detail you'd expect from a brochure handed to a billionaire, not a mobile game. It's built for players who want more depth, realism and atmosphere from the incremental genre.</p>
+        <summary><h3>How is my data handled?</h3></summary>
+        <p>Please see our <a href="/privacy/">Privacy Policy</a>.</p>
       </details>
     </div>
   </section>
