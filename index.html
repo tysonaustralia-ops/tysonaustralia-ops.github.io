@@ -588,6 +588,13 @@
     .faq-item p, .faq-item p a { color: #1a1305; }
     .faq-item p a { text-decoration: underline; }
     .faq, .faq-item { border-color: rgba(26,19,5,0.3); }
+    .faq-main > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 22px; border: 1px solid rgba(26,19,5,0.55); border-radius: 10px; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; color: #1a1305; background: rgba(26,19,5,0.08); }
+    .faq-main > summary::-webkit-details-marker { display: none; }
+    .faq-main > summary::after { content: '+'; font-size: 22px; font-weight: 400; }
+    .faq-main[open] > summary::after { content: '\2212'; }
+    .faq-main > summary:hover { background: rgba(26,19,5,0.16); }
+    .faq-main[open] .faq-list { margin-top: 10px; }
+    .faq { padding-top: 24px; padding-bottom: 24px; }
     .faq-item { padding: 14px 0; }
     .hero { min-height: 68vh; }
     /* LIVE TICKER */
@@ -808,7 +815,8 @@
 
   <!-- FAQ -->
   <section class="faq" id="faq">
-    <h2>Frequently Asked Questions</h2>
+    <details class="faq-main" id="faq-main">
+    <summary>Frequently Asked Questions</summary>
     <div class="faq-list">
       <details class="faq-item">
         <summary><h3>How do I earn money?</h3></summary>
@@ -843,6 +851,7 @@
         <p>Our <a href="/privacy/">Privacy Policy</a> explains what information is collected, why it is collected, and the choices you have. You can change your cookie settings on this website at any time using the link in the footer.</p>
       </details>
     </div>
+    </details>
   </section>
 
   <!-- CONTACT -->
@@ -994,5 +1003,6 @@
   })();
 
   </script>
+<script>if(location.hash==='#faq'){var f=document.getElementById('faq-main');if(f)f.open=true;}</script>
 </body>
 </html>
