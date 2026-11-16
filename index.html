@@ -318,6 +318,23 @@
     .feature-list strong { color: var(--gold-lt); font-family: 'Syne', sans-serif; font-weight: 700; margin-right: 6px; }
     .feature-list .fd { color: #d0cbc0; }
 
+    .listing { max-width: 900px; margin: 8px auto 24px; display: grid; grid-template-columns: 1.1fr 1fr; background: rgba(0,0,0,0.45); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .listing-photo { position: relative; min-height: 300px; }
+    .listing-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; display: block; }
+    .listing-tag { position: absolute; top: 12px; left: 12px; background: var(--gold); color: #1a1305; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 0.14em; padding: 5px 10px; border-radius: 4px; }
+    .listing-info { padding: 22px 26px; }
+    .listing-price { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 28px; color: var(--gold-lt); line-height: 1.1; }
+    .listing-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 17px; margin-top: 6px; }
+    .listing-loc { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+    .listing-stats { display: flex; gap: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 14px; }
+    .listing-stats div { flex: 1; text-align: center; padding: 9px 4px; border-right: 1px solid var(--border); font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .listing-stats div:last-child { border-right: none; }
+    .listing-stats b { display: block; font-family: 'Syne', sans-serif; font-size: 16px; color: var(--text); letter-spacing: 0; }
+    .listing-info p { font-size: 13.5px; color: #d0cbc0; line-height: 1.55; margin-bottom: 12px; }
+    .listing-amen { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 14px; font-size: 13px; color: #d0cbc0; }
+    .listing-amen li::before { content: '\2713\00a0'; color: var(--gold); }
+    @media (max-width: 768px) { .listing { grid-template-columns: 1fr; margin: 8px 20px 20px; } .listing-photo { min-height: 220px; } }
+
     /* WHY PLAYERS LOVE IT */
     .about { max-width: 1100px; margin: 0 auto; padding: 100px 48px; border-top: 1px solid var(--border); }
     .about h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(28px, 3.5vw, 44px); line-height: 1.1; margin-bottom: 32px; }
@@ -770,6 +787,36 @@
 <li><span class="fi">📈</span><span class="ft"><strong>Climb the Rich List</strong> <span class="fd">Earn achievements and rank on the global Rich List.</span></span></li>
 </ul></div>
 
+  <!-- LISTING -->
+  <div class="listing">
+    <div class="listing-photo">
+      <img src="surrey-mansion.jpg" alt="London Mansion, a 55-acre estate in Surrey, England" loading="lazy" onclick="document.getElementById('lightbox-img').src=this.src;document.getElementById('lightbox').classList.add('active')">
+      <span class="listing-tag">FOR SALE</span>
+    </div>
+    <div class="listing-info">
+      <div class="listing-price">$60,000,000</div>
+      <div class="listing-title">London Mansion</div>
+      <div class="listing-loc">Surrey, England</div>
+      <div class="listing-stats">
+        <div><b>13</b>Beds</div>
+        <div><b>15</b>Baths</div>
+        <div><b>29,840</b>Sq ft</div>
+        <div><b>55</b>Acres</div>
+      </div>
+      <p>A white mansion in 55 acres of Surrey parkland and private woodland, approached by a curving drive around a circular fountain.</p>
+      <ul class="listing-amen">
+        <li>Swimming pool</li>
+        <li>Private helipad</li>
+        <li>Leisure annexe</li>
+        <li>Gym and sauna</li>
+        <li>Triple garage</li>
+        <li>Two lodges</li>
+        <li>Wine cellar</li>
+        <li>Staff accommodation</li>
+      </ul>
+    </div>
+  </div>
+
   <!-- SCREENSHOT GALLERY -->
   <section class="screens" id="screenshots">
     <div class="screens-label">See It In Action</div>
@@ -789,6 +836,36 @@
       </div>
     </div>
   </section>
+
+  <!-- LISTING: JET -->
+  <div class="listing">
+    <div class="listing-photo">
+      <img src="widest-cabin-jet.jpg" alt="Widest-Cabin Flagship ultra-long-range business jet" loading="lazy" onclick="document.getElementById('lightbox-img').src=this.src;document.getElementById('lightbox').classList.add('active')">
+      <span class="listing-tag">FOR SALE</span>
+    </div>
+    <div class="listing-info">
+      <div class="listing-price">$250,000,000</div>
+      <div class="listing-title">Widest-Cabin Flagship</div>
+      <div class="listing-loc">Ultra-long-range business jet</div>
+      <div class="listing-stats">
+        <div><b>16</b>Seats</div>
+        <div><b>7,500</b>Nm range</div>
+        <div><b>2,800</b>Cu ft cabin</div>
+        <div><b>2</b>Engines</div>
+      </div>
+      <p>The largest cabin volume of any business jet ever built, with standing headroom throughout every zone of the cabin.</p>
+      <ul class="listing-amen">
+        <li>Sixteen lie-flat seats</li>
+        <li>Onboard chef and full galley</li>
+        <li>Stand-up shower suite</li>
+        <li>Marble-topped vanity</li>
+        <li>Wall-mounted screen</li>
+        <li>Dark wood panelling</li>
+        <li>Twin 18,000 lbf engines</li>
+        <li>Crosses 7,500 nm non-stop</li>
+      </ul>
+    </div>
+  </div>
 
   <!-- APP DETAIL -->
   
