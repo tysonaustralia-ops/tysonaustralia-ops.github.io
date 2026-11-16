@@ -74,7 +74,7 @@
         "name": "How do I earn money?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Start with one small business and watch the money roll in. Every business earns income every second, and you can upgrade it to earn even more. Your empire keeps building while the app is closed, so you come back to a pile of cash waiting for you. When you are ready to go bigger, put your wealth into stocks, crypto and real estate to grow it further."
+          "text": "Start with one small business. Every business earns income every second, and you can upgrade it to earn more. Your empire keeps earning while the app is closed, and you collect the income when you return. Once you have the cash, you can invest in stocks, crypto and real estate."
         }
       },
       {
@@ -82,7 +82,7 @@
         "name": "What is the Rich List?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The Rich List is the global ranking of the wealthiest people in the world, and your goal is to reach number one. Your net worth is everything you own: your cash, your businesses and your investments, plus the properties, jets and yachts you collect. Every smart purchase pushes you higher up the list."
+          "text": "The Rich List is the global ranking of the wealthiest people in the world, and your goal is to reach number one. Your net worth is everything you own: your cash, your businesses and your investments, plus the properties, jets and yachts you collect."
         }
       },
       {
@@ -90,7 +90,7 @@
         "name": "What is the Family Office?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The Family Office is your own private team, with staff such as an estate manager, a chauffeur and a trainer. They look after your world and send you notes about your homes, your cars and your daily life, so your empire feels lived in. It is a small touch of luxury that makes you feel like the person in charge."
+          "text": "The Family Office is your own private team, with staff such as an estate manager, a chauffeur and a trainer. They send you notes about your homes, your cars and your daily life."
         }
       },
       {
@@ -98,7 +98,7 @@
         "name": "How do Sports Franchises work?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Buy a franchise in one of several sports and own your own team. Matches play out live, and your team's form affects the income it earns, so a winning run pays off. Each season has standings and prizes, and finishing near the top is something worth celebrating."
+          "text": "Buy a franchise in one of several sports and own your own team. Matches play out live, and your team's form affects the income it earns. Each season has standings and prizes."
         }
       },
       {
@@ -106,7 +106,7 @@
         "name": "Do I have to watch ads?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. Ads in SelfMade are optional - only watch an ad if you want a reward. There are no forced interruptions, so you can play the whole game without watching a single one. Watch one when you want a bonus, and skip them when you don't."
+          "text": "No. Ads in SelfMade are optional - only watch an ad if you want a reward. There are no forced interruptions, so you can play the whole game without watching one."
         }
       },
       {
@@ -114,7 +114,7 @@
         "name": "What is Chairman Mode?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Chairman Mode is an optional subscription for players who want the premium experience. It removes ads, and it gives you a Member Card and a badge that show you are a chairman of the game. It is completely optional, and nothing in the core game is locked behind it."
+          "text": "Chairman Mode is an optional subscription. It removes ads and gives you a Member Card and a badge."
         }
       },
       {
@@ -122,7 +122,7 @@
         "name": "Do I need to spend money?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. SelfMade is free to play, and the core game needs no purchases at all. You can build your empire, buy businesses and climb the Rich List without spending a cent. Optional purchases are available if you want to speed things up, but nothing is ever required."
+          "text": "No. SelfMade is free to play, and the core game needs no purchases. Optional purchases are available if you want to speed things up."
         }
       },
       {
@@ -130,7 +130,7 @@
         "name": "How is my data handled?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Your privacy matters. Our Privacy Policy explains what information is collected, why it is collected, and the choices you have. You can also change your cookie settings on this website at any time using the link in the footer."
+          "text": "Our Privacy Policy explains what information is collected, why it is collected, and the choices you have. You can change your cookie settings on this website at any time using the link in the footer."
         }
       }
     ]
@@ -245,6 +245,10 @@
         rgba(8,8,8,1) 100%
       );
     }
+    .hero-video { position: absolute; top: 96px; right: 48px; z-index: 3; width: clamp(240px, 22vw, 340px); }
+    .hero-video-label { font-family: 'Syne', sans-serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; text-align: right; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
+    .hero-video-frame { position: relative; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); background: #000; box-shadow: 0 12px 40px rgba(0,0,0,0.55); }
+    .hero-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
     .hero-content {
       position: relative; z-index: 2;
       padding: 120px 64px 80px;
@@ -591,6 +595,7 @@
         );
         pointer-events: none;
       }
+      .hero-video { display: none; }
       .hero-content {
         position: relative;
         padding: 40px 24px 60px;
@@ -737,6 +742,12 @@
   <section class="hero">
     <img class="hero-img" src="hero-bg.png" alt="SelfMade Empire Builder">
     <div class="hero-overlay"></div>
+    <div class="hero-video">
+      <div class="hero-video-label">Watch the trailer</div>
+      <div class="hero-video-frame">
+        <iframe src="https://www.youtube-nocookie.com/embed/TmYKGw2Lkq0?rel=0" title="Idle Business Tycoon: SelfMade - Official Trailer" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
     <div class="hero-content">
       <img class="hero-logo" src="app-logo.png" alt="SelfMade app icon">
       <div class="hero-eyebrow">Cromdale Holdings Pty Ltd</div>
@@ -905,35 +916,35 @@
     <div class="faq-list">
       <details class="faq-item">
         <summary><h3>How do I earn money?</h3></summary>
-        <p>Start with one small business and watch the money roll in. Every business earns income every second, and you can upgrade it to earn even more. Your empire keeps building while the app is closed, so you come back to a pile of cash waiting for you. When you are ready to go bigger, put your wealth into stocks, crypto and real estate to grow it further.</p>
+        <p>Start with one small business. Every business earns income every second, and you can upgrade it to earn more. Your empire keeps earning while the app is closed, and you collect the income when you return. Once you have the cash, you can invest in stocks, crypto and real estate.</p>
       </details>
       <details class="faq-item">
         <summary><h3>What is the Rich List?</h3></summary>
-        <p>The Rich List is the global ranking of the wealthiest people in the world, and your goal is to reach number one. Your net worth is everything you own: your cash, your businesses and your investments, plus the properties, jets and yachts you collect. Every smart purchase pushes you higher up the list.</p>
+        <p>The Rich List is the global ranking of the wealthiest people in the world, and your goal is to reach number one. Your net worth is everything you own: your cash, your businesses and your investments, plus the properties, jets and yachts you collect.</p>
       </details>
       <details class="faq-item">
         <summary><h3>What is the Family Office?</h3></summary>
-        <p>The Family Office is your own private team, with staff such as an estate manager, a chauffeur and a trainer. They look after your world and send you notes about your homes, your cars and your daily life, so your empire feels lived in. It is a small touch of luxury that makes you feel like the person in charge.</p>
+        <p>The Family Office is your own private team, with staff such as an estate manager, a chauffeur and a trainer. They send you notes about your homes, your cars and your daily life.</p>
       </details>
       <details class="faq-item">
         <summary><h3>How do Sports Franchises work?</h3></summary>
-        <p>Buy a franchise in one of several sports and own your own team. Matches play out live, and your team's form affects the income it earns, so a winning run pays off. Each season has standings and prizes, and finishing near the top is something worth celebrating.</p>
+        <p>Buy a franchise in one of several sports and own your own team. Matches play out live, and your team's form affects the income it earns. Each season has standings and prizes.</p>
       </details>
       <details class="faq-item">
         <summary><h3>Do I have to watch ads?</h3></summary>
-        <p>No. Ads in SelfMade are optional - only watch an ad if you want a reward. There are no forced interruptions, so you can play the whole game without watching a single one. Watch one when you want a bonus, and skip them when you don't.</p>
+        <p>No. Ads in SelfMade are optional - only watch an ad if you want a reward. There are no forced interruptions, so you can play the whole game without watching one.</p>
       </details>
       <details class="faq-item">
         <summary><h3>What is Chairman Mode?</h3></summary>
-        <p>Chairman Mode is an optional subscription for players who want the premium experience. It removes ads, and it gives you a Member Card and a badge that show you are a chairman of the game. It is completely optional, and nothing in the core game is locked behind it.</p>
+        <p>Chairman Mode is an optional subscription. It removes ads and gives you a Member Card and a badge.</p>
       </details>
       <details class="faq-item">
         <summary><h3>Do I need to spend money?</h3></summary>
-        <p>No. SelfMade is free to play, and the core game needs no purchases at all. You can build your empire, buy businesses and climb the Rich List without spending a cent. Optional purchases are available if you want to speed things up, but nothing is ever required.</p>
+        <p>No. SelfMade is free to play, and the core game needs no purchases. Optional purchases are available if you want to speed things up.</p>
       </details>
       <details class="faq-item">
         <summary><h3>How is my data handled?</h3></summary>
-        <p>Your privacy matters. Our <a href="/privacy/">Privacy Policy</a> explains what information is collected, why it is collected, and the choices you have. You can also change your cookie settings on this website at any time using the link in the footer.</p>
+        <p>Our <a href="/privacy/">Privacy Policy</a> explains what information is collected, why it is collected, and the choices you have. You can change your cookie settings on this website at any time using the link in the footer.</p>
       </details>
     </div>
   </section>
