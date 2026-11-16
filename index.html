@@ -619,6 +619,12 @@
       footer { flex-direction: column; text-align: center; }
     }
 
+    /* COMPACT LAYOUT */
+    .about { padding-top: 56px; padding-bottom: 56px; }
+    .screens { padding-top: 56px; padding-bottom: 56px; }
+    .faq { padding-top: 48px; padding-bottom: 48px; }
+    .feature { padding: 36px 36px; }
+    .hero { min-height: 88vh; }
     /* LIVE TICKER */
     .site-ticker-wrap {
       display: flex;
@@ -758,7 +764,6 @@
       <div class="hero-actions">
         <a href="#app" class="btn-primary" onclick="gtag('event','play_now_click',{event_category:'cta',event_label:'hero_play_now'})">Coming Soon</a>
         <a href="#app" class="btn-outline" onclick="gtag('event','click',{event_category:'cta',event_label:'hero_learn_more'})">Learn More</a>
-        <a href="#trailer" class="btn-outline" onclick="gtag('event','click',{event_category:'cta',event_label:'hero_watch_trailer'})">&#9654; Watch Trailer</a>
       </div>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;align-items:center">
         <a href="#app" class="store-btn" onclick="gtag('event','click',{event_category:'cta',event_label:'hero_appstore'})" aria-label="Download on the App Store">
@@ -772,13 +777,7 @@
   </section>
 
   <!-- TRAILER -->
-  <section class="trailer" id="trailer">
-    <div class="trailer-label">Official Trailer</div>
-    <div class="trailer-frame trailer-yt" id="trailer-yt">
-      <iframe src="https://www.youtube-nocookie.com/embed/TmYKGw2Lkq0?rel=0" title="Idle Business Tycoon: SelfMade - Official Trailer" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>
-    </div>
-  </section>
-
+  
   <!-- LIVE TICKER -->
   <div class="site-ticker-wrap">
     <div class="site-ticker-live">LIVE</div>
@@ -857,15 +856,16 @@
   </section>
 
   <!-- APP DETAIL -->
-  <section class="app-section" id="app">
-    <div>
-      <img class="app-logo" src="app-logo.png" alt="SelfMade app icon" loading="lazy">
-      <div class="app-label">Idle Business Tycoon: SelfMade™</div>
-      <h2>Have you got what it takes to be number one on the Rich List?</h2>
-      <p>Sit back, relax and enjoy living in luxury. Unwind on your private jet, drift across the sea on your superyacht, or spend time in your homes and apartments around the world.</p>
-      <p>Idle Business Tycoon: SelfMade is a free-to-play idle tycoon game and an escape from everyday life. Disappear into a world where you answer to no one.</p>
-      <p>Be a businessman or businesswoman and see if you have what it takes to be number one on the Rich List.</p>
-      <p style="color:var(--gold);font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;margin-top:8px;">Coming soon &nbsp;·&nbsp; iOS &amp; Android</p>
+  
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div id="app"></div>
+    <h2>About SelfMade</h2>
+    <p><strong>SelfMade is the idle game that lets you escape.</strong> Start with one small business and watch it grow into an empire, even while you are away. There is no one to answer to, just jets, yachts, mansions and a spot at the top of the Rich List.</p>
+    <p><strong>Idle Business Tycoon: SelfMade</strong> is a free idle tycoon game for iOS and Android. It is an idle clicker and incremental simulator, so your businesses and investments keep earning while you are away. The core game needs no purchases, and ads are optional - only watch an ad if you want a reward.</p>
+    <p>Build and upgrade businesses, trade stocks and crypto on a live in-game market, invest in real estate around the world, and collect private jets, superyachts, jewellery and fashion. Every business, property, car, yacht and jet comes with vivid photography and a detailed description, written like a private listing.</p>
+    <p>All money in SelfMade is fictional and has no real-world value. It is designed purely for fun.</p>
+    <p style="color:var(--gold);font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;margin-top:8px;">Coming soon &nbsp;·&nbsp; iOS &amp; Android</p>
       <p style="margin-top:4px"><a href="#contact" style="color:var(--gold)">Follow us on TikTok, Instagram, YouTube and Facebook</a> to be notified at launch.</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
         <a href="#" id="appstore-link" onclick="gtag('event','click',{event_category:'cta',event_label:'appstore'})" aria-label="Download on the App Store" style="opacity:0.5;pointer-events:none;cursor:default">
@@ -875,39 +875,6 @@
           <svg height="40" viewBox="0 0 135 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="135" height="40" rx="6" fill="#111"/><rect width="135" height="40" rx="6" fill="white" fill-opacity="0.08"/><rect x="0.5" y="0.5" width="134" height="39" rx="5.5" stroke="white" stroke-opacity="0.25"/><text x="38" y="15" fill="white" font-family="system-ui,-apple-system,sans-serif" font-size="7" opacity="0.7">GET IT ON</text><text x="38" y="30" fill="white" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="600">Google Play</text><text x="14" y="29" fill="white" font-family="system-ui,-apple-system,sans-serif" font-size="22">▶</text></svg>
         </a>
       </div>
-    </div>
-      <div>
-      <video class="app-img" src="selfmade-trailer-silent.mp4" poster="sunset-sailboat.jpg" autoplay muted loop playsinline preload="auto" style="cursor:default;display:block" aria-label="SelfMade trailer"></video>
-    </div>
-  </section>
-
-  <!-- WHY PLAYERS LOVE IT -->
-  <section class="why" id="why">
-    <h2>Why Players Love It</h2>
-    <ul class="why-list">
-        <li>Free to play, with optional rewarded videos for bonuses</li>
-        <li>A relaxing escape where you answer to no one</li>
-        <li>A game that appeals to women and men alike – live your ideal lifestyle</li>
-        <li>Idle income that keeps growing while you’re offline</li>
-        <li>Cars, yachts, jets, homes, art and jewellery in stunning detail</li>
-        <li>A Family Office with your own staff</li>
-        <li>Live sports matches featuring your own team</li>
-        <li>A live global stock market, with crypto and commodities</li>
-        <li>Make a difference to others with world-changing philanthropy</li>
-        <li>Watch an optional rewarded video for a boost, or skip them entirely</li>
-    </ul>
-  </section>
-
-  <!-- ABOUT -->
-  <section class="about" id="about">
-    <h2>About SelfMade</h2>
-    <p><strong>SelfMade is the idle game that lets you escape.</strong> Start with one small business and watch it grow into an empire, even while you are away. There is no one to answer to, just jets, yachts, mansions and a spot at the top of the Rich List.</p>
-    <p><strong>Idle Business Tycoon: SelfMade</strong> is a free idle tycoon game for iOS and Android.</p>
-    <p>It is an idle clicker and incremental simulator. Your businesses and investments keep earning while you are away, so you can play for a minute or an hour.</p>
-    <p>Build and upgrade businesses, trade stocks and crypto on a live in-game market, invest in real estate around the world, and collect private jets, superyachts, jewellery and fashion. Every business, property, car, yacht and jet comes with vivid photography and a detailed description, written like a private listing.</p>
-    <p>SelfMade is a relaxing, low-pressure escape, with real depth for players who want it: a live stock market, a global Rich List and strategic decisions along the way.</p>
-    <p><strong>Free to play.</strong> The core game needs no purchases. Ads are optional - only watch an ad if you want a reward.</p>
-    <p>All money in SelfMade is fictional and has no real-world value. It is designed purely for fun.</p>
   </section>
 
   <!-- FAQ -->
