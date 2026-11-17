@@ -251,7 +251,7 @@
         rgba(8,8,8,0) 100%
       );
     }
-    .hero-video { position: absolute; top: 96px; right: 48px; z-index: 3; width: clamp(240px, 22vw, 340px); }
+    .hero-video { position: absolute; top: 150px; right: 48px; z-index: 3; width: clamp(240px, 22vw, 340px); }
     .hero-video-label { font-family: 'Syne', sans-serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; text-align: right; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
     .hero-video-frame { position: relative; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); background: #000; box-shadow: 0 12px 40px rgba(0,0,0,0.55); }
     .hero-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
@@ -527,8 +527,9 @@
     .follow-bar .follow-icons { display: flex; justify-content: center; align-items: center; gap: 16px; }
     .follow-bar a { display: inline-flex; line-height: 0; }
     .follow-bar a:hover { opacity: 0.85; }
-    footer .follow-bar { flex: 1 1 100%; }
-    footer .follow-bar p { color: #1a1305; }
+    .follow-top { position: absolute; top: 78px; left: 0; right: 0; z-index: 3; max-width: none; margin: 0; }
+    .follow-top p { color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,0.85); }
+    .follow-top .follow-icons a { filter: drop-shadow(0 1px 4px rgba(0,0,0,0.6)); }
     @media (max-width: 600px) { .follow-bar { margin: 10px 16px; padding: 4px 8px; } .follow-bar p { font-size: 11px; letter-spacing: 0.1em; } }
 
     /* CONTACT */
@@ -582,6 +583,7 @@
         pointer-events: none;
       }
       .hero-video { display: none; }
+      .follow-top { top: 8px; }
       .hero-content {
         position: relative;
         padding: 40px 24px 60px;
@@ -749,6 +751,7 @@
   <section class="hero">
     <img class="hero-img" src="hero-bg.png" alt="SelfMade Empire Builder">
     <div class="hero-overlay"></div>
+    <div class="follow-bar follow-top"><p>Follow us on social media to be notified of news and updates</p><div class="follow-icons"><a href="https://www.youtube.com/channel/UCCxlsgmv8NmzD76LjrChXAA" target="_blank" rel="noopener" aria-label="YouTube"><svg width="34" height="24" viewBox="0 0 24 17" aria-hidden="true"><rect width="24" height="17" rx="4" fill="#FF0000"/><path d="M9.6 4.8v7.4l6.4-3.7z" fill="#fff"/></svg></a><a href="https://www.facebook.com/profile.php?id=61596185295256" target="_blank" rel="noopener" aria-label="Facebook"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path d="M13.4 19.5v-6.1h2.1l.3-2.4h-2.4V9.5c0-.7.2-1.2 1.2-1.2h1.3V6.2c-.2 0-1-.1-1.9-.1-1.9 0-3.2 1.2-3.2 3.3V11H8.7v2.4h2.1v6.1h2.6z" fill="#fff"/></svg></a><a href="https://www.tiktok.com/@idle_tycoon_selfmade" target="_blank" rel="noopener" aria-label="TikTok"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#000"/><circle cx="12" cy="12" r="11.5" fill="none" stroke="#333" stroke-width="1"/><g fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 6v7.6a2.9 2.9 0 1 1-2.9-2.9" stroke="#25F4EE" transform="translate(-.7 -.5)"/><path d="M14.6 6v7.6a2.9 2.9 0 1 1-2.9-2.9" stroke="#FE2C55" transform="translate(.7 .5)"/><path d="M14.6 6v7.6a2.9 2.9 0 1 1-2.9-2.9" stroke="#fff"/><path d="M14.6 6c.2 1.8 1.4 3 3.2 3.1" stroke="#fff"/></g></svg></a><a href="https://www.instagram.com/idlebusinesstycoonselfmade/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="igGrad" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FEDA75"/><stop offset=".3" stop-color="#FA7E1E"/><stop offset=".55" stop-color="#D62976"/><stop offset=".8" stop-color="#962FBF"/><stop offset="1" stop-color="#4F5BD5"/></linearGradient></defs><circle cx="12" cy="12" r="12" fill="url(#igGrad)"/><rect x="6.2" y="6.2" width="11.6" height="11.6" rx="3.4" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="2.8" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="15.7" cy="8.3" r=".9" fill="#fff"/></svg></a></div></div>
     <div class="hero-video">
       <div class="hero-video-label">Watch the trailer</div>
       <div class="hero-video-frame">
@@ -779,7 +782,6 @@
   <!-- TRAILER -->
   
 
-  <div class="follow-bar"><p>Follow us on social media to be notified of news and updates</p><div class="follow-icons"><a href="https://www.youtube.com/channel/UCCxlsgmv8NmzD76LjrChXAA" target="_blank" rel="noopener" aria-label="YouTube"><svg width="34" height="24" viewBox="0 0 24 17" aria-hidden="true"><rect width="24" height="17" rx="4" fill="#FF0000"/><path d="M9.6 4.8v7.4l6.4-3.7z" fill="#fff"/></svg></a><a href="https://www.facebook.com/profile.php?id=61596185295256" target="_blank" rel="noopener" aria-label="Facebook"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path d="M13.4 19.5v-6.1h2.1l.3-2.4h-2.4V9.5c0-.7.2-1.2 1.2-1.2h1.3V6.2c-.2 0-1-.1-1.9-.1-1.9 0-3.2 1.2-3.2 3.3V11H8.7v2.4h2.1v6.1h2.6z" fill="#fff"/></svg></a><a href="https://www.tiktok.com/@idle_tycoon_selfmade" target="_blank" rel="noopener" aria-label="TikTok"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#000"/><circle cx="12" cy="12" r="11.5" fill="none" stroke="#333" stroke-width="1"/><g fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 6v7.6a2.9 2.9 0 1 1-2.9-2.9" stroke="#25F4EE" transform="translate(-.7 -.5)"/><path d="M14.6 6v7.6a2.9 2.9 0 1 1-2.9-2.9" stroke="#FE2C55" transform="translate(.7 .5)"/><path d="M14.6 6v7.6a2.9 2.9 0 1 1-2.9-2.9" stroke="#fff"/><path d="M14.6 6c.2 1.8 1.4 3 3.2 3.1" stroke="#fff"/></g></svg></a><a href="https://www.instagram.com/idlebusinesstycoonselfmade/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="igGrad" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FEDA75"/><stop offset=".3" stop-color="#FA7E1E"/><stop offset=".55" stop-color="#D62976"/><stop offset=".8" stop-color="#962FBF"/><stop offset="1" stop-color="#4F5BD5"/></linearGradient></defs><circle cx="12" cy="12" r="12" fill="url(#igGrad)"/><rect x="6.2" y="6.2" width="11.6" height="11.6" rx="3.4" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="2.8" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="15.7" cy="8.3" r=".9" fill="#fff"/></svg></a></div></div>
   <!-- LIVE TICKER -->
   <div class="site-ticker-wrap">
     <div class="site-ticker-live">LIVE</div>
@@ -917,7 +919,8 @@
     <p>Support, feedback, or general enquiries:</p>
     <p><a href="mailto:admin@cromdaleholdings.com" onclick="gtag('event','click',{event_category:'contact',event_label:'contact_email'})">admin@cromdaleholdings.com</a></p>
     <p style="margin-top:24px;font-size:13px;">Cromdale Holdings Pty Ltd</p>
-    <p style="margin-top:24px;display:flex;justify-content:center;gap:16px;align-items:center">
+    <p style="margin-top:24px">Follow us on social media to be notified of news and updates</p>
+    <p style="margin-top:8px;display:flex;justify-content:center;gap:16px;align-items:center">
       <a href="https://www.youtube.com/channel/UCCxlsgmv8NmzD76LjrChXAA" target="_blank" rel="noopener" aria-label="YouTube"><svg width="34" height="24" viewBox="0 0 24 17" aria-hidden="true"><rect width="24" height="17" rx="4" fill="#FF0000"/><path d="M9.6 4.8v7.4l6.4-3.7z" fill="#fff"/></svg></a>
       <a href="https://www.facebook.com/profile.php?id=61596185295256" target="_blank" rel="noopener" aria-label="Facebook"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path d="M13.4 19.5v-6.1h2.1l.3-2.4h-2.4V9.5c0-.7.2-1.2 1.2-1.2h1.3V6.2c-.2 0-1-.1-1.9-.1-1.9 0-3.2 1.2-3.2 3.3V11H8.7v2.4h2.1v6.1h2.6z" fill="#fff"/></svg></a>
       <a href="https://www.tiktok.com/@idle_tycoon_selfmade" target="_blank" rel="noopener" aria-label="TikTok"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#000"/><circle cx="12" cy="12" r="11.5" fill="none" stroke="#333" stroke-width="1"/><g fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 6v7.6a2.9 2.9 0 1 1-2.9-2.9" stroke="#25F4EE" transform="translate(-.7 -.5)"/><path d="M14.6 6v7.6a2.9 2.9 0 1 1-2.9-2.9" stroke="#FE2C55" transform="translate(.7 .5)"/><path d="M14.6 6v7.6a2.9 2.9 0 1 1-2.9-2.9" stroke="#fff"/><path d="M14.6 6c.2 1.8 1.4 3 3.2 3.1" stroke="#fff"/></g></svg></a>
@@ -942,7 +945,6 @@
   <!-- FOOTER -->
   <footer>
     <img class="footer-logo" src="logo-icon.png" alt="SelfMade" loading="lazy">
-  <div class="follow-bar" style="margin-top:0"><p>Follow us on social media to be notified of news and updates</p><div class="follow-icons"><a href="https://www.youtube.com/channel/UCCxlsgmv8NmzD76LjrChXAA" target="_blank" rel="noopener" aria-label="YouTube"><svg width="34" height="24" viewBox="0 0 24 17" aria-hidden="true"><rect width="24" height="17" rx="4" fill="#FF0000"/><path d="M9.6 4.8v7.4l6.4-3.7z" fill="#fff"/></svg></a><a href="https://www.facebook.com/profile.php?id=61596185295256" target="_blank" rel="noopener" aria-label="Facebook"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path d="M13.4 19.5v-6.1h2.1l.3-2.4h-2.4V9.5c0-.7.2-1.2 1.2-1.2h1.3V6.2c-.2 0-1-.1-1.9-.1-1.9 0-3.2 1.2-3.2 3.3V11H8.7v2.4h2.1v6.1h2.6z" fill="#fff"/></svg></a><a href="https://www.tiktok.com/@idle_tycoon_selfmade" target="_blank" rel="noopener" aria-label="TikTok"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#000"/><circle cx="12" cy="12" r="11.5" fill="none" stroke="#333" stroke-width="1"/><g fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 6v7.6a2.9 2.9 0 1 1-2.9-2.9" stroke="#25F4EE" transform="translate(-.7 -.5)"/><path d="M14.6 6v7.6a2.9 2.9 0 1 1-2.9-2.9" stroke="#FE2C55" transform="translate(.7 .5)"/><path d="M14.6 6v7.6a2.9 2.9 0 1 1-2.9-2.9" stroke="#fff"/><path d="M14.6 6c.2 1.8 1.4 3 3.2 3.1" stroke="#fff"/></g></svg></a><a href="https://www.instagram.com/idlebusinesstycoonselfmade/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="igGrad" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FEDA75"/><stop offset=".3" stop-color="#FA7E1E"/><stop offset=".55" stop-color="#D62976"/><stop offset=".8" stop-color="#962FBF"/><stop offset="1" stop-color="#4F5BD5"/></linearGradient></defs><circle cx="12" cy="12" r="12" fill="url(#igGrad)"/><rect x="6.2" y="6.2" width="11.6" height="11.6" rx="3.4" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="2.8" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="15.7" cy="8.3" r=".9" fill="#fff"/></svg></a></div></div>
 
     <p>&copy; <span id="footer-year">2026</span> Cromdale Holdings Pty Ltd. All rights reserved.</p>
     <p><a href="/privacy/" onclick="gtag('event','click',{event_category:'footer',event_label:'privacy_policy'})">Privacy Policy</a> &nbsp;·&nbsp; <a href="/terms/" onclick="gtag('event','click',{event_category:'footer',event_label:'terms'})">Terms of Use</a> &nbsp;·&nbsp; <a href="#" onclick="ccShowBanner();return false;">Cookie settings</a></p>
