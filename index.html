@@ -831,7 +831,7 @@
   <section class="screens" id="screenshots">
     <div class="screens-grid">
       <div class="screen-card" onclick="gtag('event','screenshot_click',{event_category:'engagement',event_label:'gallery_recording'});var lb=document.getElementById('lightbox');lb.classList.add('vid','active');var lv=document.getElementById('lightbox-video');lv.currentTime=0;lv.play()">
-        <video src="screenshots/app-recording.mp4" poster="screenshots/app-recording-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="SelfMade gameplay recording"></video>
+        <video src="app-recording.mp4" poster="app-recording-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="SelfMade gameplay recording"></video>
       </div>
       <div class="screen-card" onclick="gtag('event','screenshot_click',{event_category:'engagement',event_label:'gallery_tap_to_earn'});document.getElementById('lightbox').classList.remove('vid');document.getElementById('lightbox-img').src=this.querySelector('img').src;document.getElementById('lightbox').classList.add('active')">
         <img src="screenshots/tap-to-earn.jpg" alt="SelfMade tap to earn screenshot" loading="lazy">
@@ -961,7 +961,7 @@
   <div class="lightbox" id="lightbox" onclick="gtag('event','lightbox_close',{event_category:'engagement',event_label:'screenshot_lightbox'});document.getElementById('lightbox-video').pause();this.classList.remove('vid');this.classList.remove('active')">
     <div class="lightbox-close" onclick="document.getElementById('lightbox-video').pause();document.getElementById('lightbox').classList.remove('vid');document.getElementById('lightbox').classList.remove('active')">&times;</div>
     <img id="lightbox-img" src="" alt="SelfMade screenshot">
-    <video id="lightbox-video" src="screenshots/app-recording.mp4" muted loop playsinline></video>
+    <video id="lightbox-video" src="app-recording.mp4" muted loop playsinline></video>
   </div>
 
   <!-- FOOTER -->
